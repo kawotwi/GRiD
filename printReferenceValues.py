@@ -6,15 +6,17 @@ from util import parseInputs, printUsage, validateRobot, initializeValues, print
 import numpy as np
 
 def main():
-    URDF_PATH, DEBUG_MODE, FILE_NAMESPACE_NAME = parseInputs()
+    URDF_PATH, DEBUG_MODE, FLOATING_BASE = parseInputs()
 
     parser = URDFParser()
-    robot = parser.parse(URDF_PATH)
+    robot = parser.parse(URDF_PATH, floating_base = FLOATING_BASE)
 
     validateRobot(robot)
 
     reference = RBDReference(robot)
     q, qd, u, n = initializeValues(robot, MATCH_CPP_RANDOM = True)
+
+    qd = 0*qd
 
     print("q")
     print(q)
@@ -23,7 +25,21 @@ def main():
     print("u")
     print(u)
 
+    NB = robot.get_num_bodies()
+    for curr_id in range(NB):
+        inds_q = robot.get_joint_index_q(curr_id)
+        _q = q[inds_q]
+        Xmat = robot.get_Xmat_Func_by_id(curr_id)(_q)
+        print("X[",curr_id,"]")
+        print(Xmat)
+
     (c, v, a, f) = reference.rnea(q,qd)
+    print("v")
+    print(v)
+    print("a")
+    print(a)
+    print("f")
+    print(f)
     print("c")
     print(c)
 
@@ -51,7 +67,7 @@ def main():
         print("-------------------")
         print("printing intermediate outputs from refactorings")
         print("-------------------")
-        codegen = GRiDCodeGenerator(robot, DEBUG_MODE, FILE_NAMESPACE = FILE_NAMESPACE_NAME)
+        codegen = GRiDCodeGenerator(robot, DEBUG_MODE)
         (c, v, a, f) = codegen.test_rnea(q,qd)
         print("v")
         print(v)
