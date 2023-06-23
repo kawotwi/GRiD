@@ -1,7 +1,7 @@
 #include "grid.cuh" 
 //run CodeGen to get grid.cuh
 
-main {
+int main() {
 
     grid::gridData<float> *hd_data = grid::init_gridData<float,1>();
     grid::robotModel<float> *d_robotModel = grid::init_robotModel<float>();;
