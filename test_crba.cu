@@ -14,7 +14,7 @@ int main() {
     grid::robotModel<float> *d_robotModel = grid::init_robotModel<float>();
     const int num_timesteps = 1;
     float gravity = static_cast<float>(9.81);
-    printf("gravity =  %d", gravity);
+    printf("gravity =  %f", gravity);
     dim3 dimms(grid::SUGGESTED_THREADS,1,1);
     cudaStream_t *streams = grid::init_grid<float>();
 
