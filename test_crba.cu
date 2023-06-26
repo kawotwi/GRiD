@@ -8,10 +8,13 @@
 
 int main() {
 
+    printf("buckle up and enjoy the ride");
+
     grid::gridData<float> *hd_data = grid::init_gridData<float,1>();
     grid::robotModel<float> *d_robotModel = grid::init_robotModel<float>();;
     const int num_timesteps = 1;
     float gravity = static_cast<float>(9.81);
+    printf("gravity =  %d", gravity);
     dim3 dimms(grid::SUGGESTED_THREADS,1,1);
     cudaStream_t *streams = grid::init_grid<float>();
 
@@ -42,7 +45,7 @@ int main() {
     gpuErrchk(cudaMemcpy(hd_data->d_q_qd_u,hd_data->h_q_qd_u,3*grid::NUM_JOINTS*sizeof(float),cudaMemcpyHostToDevice));
 	gpuErrchk(cudaDeviceSynchronize());
 
-    printf("buckle up and enjoy the ride");
+    printf("testing....");
 
 	"""printf("q,qd,u\n");
 	printMat<float,1,grid::NUM_JOINTS>(hd_data->h_q_qd_u,1);
