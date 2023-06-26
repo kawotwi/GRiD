@@ -11,7 +11,7 @@ int main() {
     printf("buckle up and enjoy the ride");
 
     grid::gridData<float> *hd_data = grid::init_gridData<float,1>();
-    grid::robotModel<float> *d_robotModel = grid::init_robotModel<float>();;
+    grid::robotModel<float> *d_robotModel = grid::init_robotModel<float>();
     const int num_timesteps = 1;
     float gravity = static_cast<float>(9.81);
     printf("gravity =  %d", gravity);
@@ -47,10 +47,10 @@ int main() {
 
     printf("testing....");
 
-	"""printf("q,qd,u\n");
-	printMat<float,1,grid::NUM_JOINTS>(hd_data->h_q_qd_u,1);
-	printMat<float,1,grid::NUM_JOINTS>(&hd_data->h_q_qd_u[grid::NUM_JOINTS],1);
-	printMat<float,1,grid::NUM_JOINTS>(&hd_data->h_q_qd_u[2*grid::NUM_JOINTS],1);"""
+	//printf("q,qd,u\n");
+	//printMat<float,1,grid::NUM_JOINTS>(hd_data->h_q_qd_u,1);
+	//printMat<float,1,grid::NUM_JOINTS>(&hd_data->h_q_qd_u[grid::NUM_JOINTS],1);
+	//printMat<float,1,grid::NUM_JOINTS>(&hd_data->h_q_qd_u[2*grid::NUM_JOINTS],1);
     
     grid::crba<float>(hd_data,d_robotModel,gravity,1,dim3(1,1,1),dimms,streams);
 	printMat<float,1,grid::NUM_JOINTS>(hd_data->h_H,1);
