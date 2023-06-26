@@ -10,7 +10,6 @@
 int main() {
 
     printf("buckle up and enjoy the ride");
-    cout << "buckle up and enjoy the ride";
 
     grid::gridData<float> *hd_data = grid::init_gridData<float,1>();
     grid::robotModel<float> *d_robotModel = grid::init_robotModel<float>();
