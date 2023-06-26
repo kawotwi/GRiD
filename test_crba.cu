@@ -42,7 +42,7 @@ int main() {
 	printMat<float,1,grid::NUM_JOINTS>(&hd_data->h_q_qd_u[grid::NUM_JOINTS],1);
 	printMat<float,1,grid::NUM_JOINTS>(&hd_data->h_q_qd_u[2*grid::NUM_JOINTS],1);
     
-    grid::crba<float:>(hd_data,d_robotModel,gravity,1,dim3(1,1,1),dimms,streams);
+    grid::crba<float>(hd_data,d_robotModel,gravity,1,dim3(1,1,1),dimms,streams);
 	printMat<float,1,grid::NUM_JOINTS>(hd_data->h_H,1);
     // print H matrix so for loops;
 
