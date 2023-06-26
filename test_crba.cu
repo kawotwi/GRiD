@@ -1,4 +1,9 @@
 #include "grid.cuh" 
+#include <assert.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <cuda_runtime.h>
 //run CodeGen to get grid.cuh
 
 int main() {
