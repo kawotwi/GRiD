@@ -9,13 +9,13 @@
 
 int main() {
 
-    printf("buckle up and enjoy the ride");
+    printf("buckle up and enjoy the ride \n");
 
     grid::gridData<float> *hd_data = grid::init_gridData<float,1>();
     grid::robotModel<float> *d_robotModel = grid::init_robotModel<float>();
     const int num_timesteps = 1;
     float gravity = static_cast<float>(9.81);
-    printf("gravity =  %f", gravity);
+    //printf("gravity =  %f", gravity);
     dim3 dimms(grid::SUGGESTED_THREADS,1,1);
     cudaStream_t *streams = grid::init_grid<float>();
 
@@ -46,7 +46,7 @@ int main() {
     gpuErrchk(cudaMemcpy(hd_data->d_q_qd_u,hd_data->h_q_qd_u,3*grid::NUM_JOINTS*sizeof(float),cudaMemcpyHostToDevice));
 	gpuErrchk(cudaDeviceSynchronize());
 
-    printf("testing....");
+    //printf("testing....");
 
 	//printf("q,qd,u\n");
 	//printMat<float,1,grid::NUM_JOINTS>(hd_data->h_q_qd_u,1);
@@ -55,7 +55,7 @@ int main() {
     
     grid::crba<float>(hd_data,d_robotModel,gravity,1,dim3(1,1,1),dimms,streams);
 	printMat<float,1,grid::NUM_JOINTS>(hd_data->h_H,1);
-    printf("byeee");
+    printf("byeee \n");
     // print H matrix so for loops;
 
     return 0; 
