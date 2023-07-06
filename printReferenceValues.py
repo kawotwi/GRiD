@@ -20,12 +20,14 @@ def main():
     print("qd\n",qd)
     print("u\n",u)
 
-    print("\nNote: the variables u, q, and qd are hardcoded even though they are computed above\n")
-    u = np.zeros(n)
-    q =[1,2,3,1,2,3,1]
-    qd = np.zeros(n)
+    ee_pos = reference.end_effector_positions(q)
+    print("eepos\n",ee_pos)
+
+    dee_pos = reference.end_effector_position_gradients(q)
+    print("deepos\n",dee_pos)
 
     (c, v, a, f) = reference.rnea(q,qd)
+    print("c\n",c)
 
     Minv = reference.minv(q)
     print("Minv\n", Minv)
