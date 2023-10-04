@@ -1,5 +1,5 @@
 /***
-nvcc -std=c++11 -o printGRiD.exe printGRiD.cu -gencode arch=compute_86,code=sm_86 -O3 -ftz=true -prec-div=false -prec-sqrt=false
+nvcc -std=c++11 -o printGRiD.exe printGRiD.cu -gencode arch=compute_86,code=sm_86
 ***/
 
 #include <random>
@@ -34,6 +34,14 @@ void test(){
 	printMat<T,1,grid::NUM_JOINTS>(hd_data->h_q_qd_u,1);
 	printMat<T,1,grid::NUM_JOINTS>(&hd_data->h_q_qd_u[grid::NUM_JOINTS],1);
 	printMat<T,1,grid::NUM_JOINTS>(&hd_data->h_q_qd_u[2*grid::NUM_JOINTS],1);
+
+	printf("eePos\n");
+	grid::end_effector_positions<T,false>(hd_data,d_robotModel,1,dim3(1,1,1),dimms,streams);
+	printMat<T,1,6*grid::NUM_EES>(hd_data->h_eePos,1);
+
+	printf("deePos\n");
+	grid::end_effector_positions_gradient<T,false>(hd_data,d_robotModel,1,dim3(1,1,1),dimms,streams);
+	printMat<T,6,grid::NUM_EES*grid::NUM_JOINTS>(hd_data->h_deePos,6);
 
 	printf("c\n");
 	grid::inverse_dynamics<T,false,false>(hd_data,d_robotModel,gravity,1,dim3(1,1,1),dimms,streams);

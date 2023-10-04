@@ -14,11 +14,11 @@ def main():
 
         validateRobot(robot, NO_ARG_OPTION = True)
 
-        codegen = GRiDCodeGenerator(robot,DEBUG_MODE,True, FILE_NAMESPACE = FILE_NAMESPACE_NAME)
+        codegen = GRiDCodeGenerator(robot, DEBUG_MODE, True, FILE_NAMESPACE = FILE_NAMESPACE_NAME)
         print("-----------------")
         print("Generating GRiD.cuh")
         print("-----------------")
-        codegen.gen_all_code()
+        codegen.gen_all_code(include_homogenous_transforms = True)
         print("New code generated and saved to grid.cuh!")
 
     print("-----------------")
