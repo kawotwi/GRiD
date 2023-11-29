@@ -25,29 +25,28 @@ int hyq(){
     hd_data->h_q_qd_u[10] = 0.1;
     hd_data->h_q_qd_u[11] = 0.2;
 
-    hd_data->h_q_qd_u[11] = 0;
-    hd_data->h_q_qd_u[12] = 0;
-    hd_data->h_q_qd_u[13] = 0;
-    hd_data->h_q_qd_u[14] = 0;
-    hd_data->h_q_qd_u[15] = 0;
-    hd_data->h_q_qd_u[16] = 0;
-    hd_data->h_q_qd_u[17] = 0;
-    hd_data->h_q_qd_u[18] = 0;
-    hd_data->h_q_qd_u[19] = 0;
-    hd_data->h_q_qd_u[20] = 0;
-    hd_data->h_q_qd_u[21] = 0;
+    hd_data->h_q_qd_u[12] = 0.1;
+    hd_data->h_q_qd_u[13] = 0.1;
+    hd_data->h_q_qd_u[14] = 0.1;
+    hd_data->h_q_qd_u[15] = 0.1;
+    hd_data->h_q_qd_u[16] = 0.1;
+    hd_data->h_q_qd_u[17] = 0.1;
+    hd_data->h_q_qd_u[18] = 0.1;
+    hd_data->h_q_qd_u[19] = 0.1;
+    hd_data->h_q_qd_u[20] = 0.1;
+    hd_data->h_q_qd_u[21] = 0.1;
+    hd_data->h_q_qd_u[22] = 0.1;
     
-    hd_data->h_q_qd_u[22] = 0;
-    hd_data->h_q_qd_u[23] = 0;
-    hd_data->h_q_qd_u[24] = 0;
-    hd_data->h_q_qd_u[25] = 0;
-    hd_data->h_q_qd_u[26] = 0;
-    hd_data->h_q_qd_u[27] = 0;
-    hd_data->h_q_qd_u[28] = 0;
-    hd_data->h_q_qd_u[29] = 0;
-    hd_data->h_q_qd_u[30] = 0;
-    hd_data->h_q_qd_u[31] = 0;
-    hd_data->h_q_qd_u[32] = 0;
+    hd_data->h_q_qd_u[23] = 0.1;
+    hd_data->h_q_qd_u[24] = 0.1;
+    hd_data->h_q_qd_u[25] = 0.1;
+    hd_data->h_q_qd_u[26] = 0.1;
+    hd_data->h_q_qd_u[27] = 0.1;
+    hd_data->h_q_qd_u[28] = 0.1;
+    hd_data->h_q_qd_u[29] = 0.1;
+    hd_data->h_q_qd_u[30] = 0.1;
+    hd_data->h_q_qd_u[31] = 0.1;
+    hd_data->h_q_qd_u[32] = 0.1;
 
     /*hd_data->h_q_qd_u[11] = 0.2;
     hd_data->h_q_qd_u[12] = 0.1;
@@ -84,7 +83,7 @@ int hyq(){
     printf("crba\n");
     grid::crba<float, false>(hd_data, d_robotModel, gravity, 1, dim3(1,1,1), dimms, streams);
     printf("M = \n");
-    printMat<float,1,grid::NUM_JOINTS>(hd_data->h_H,1);
+    printMat<float,1,grid::NUM_JOINTS>(hd_data->h_M,1);
     
     return 0;
 }
@@ -167,7 +166,7 @@ int hyq_missing_limb(){
     printf("crba\n");
     grid::crba<float>(hd_data, d_robotModel, gravity, 1, dim3(1,1,1), dimms, streams);
     printf("M = \n");
-    printMat<float,1,grid::NUM_JOINTS>(hd_data->h_H,1);
+    printMat<float,1,grid::NUM_JOINTS>(hd_data->h_M,1);
     
     return 0;
 }
@@ -210,7 +209,7 @@ int iiwa(){
     printf("crba\n");
     grid::crba<float, false>(hd_data, d_robotModel, gravity, 1, dim3(1,1,1), dimms, streams);
     printf("M = ");
-    printMat<float,1,grid::NUM_JOINTS>(hd_data->h_H,1);
+    printMat<float,1,grid::NUM_JOINTS>(hd_data->h_M,1);
     return 0;
 }
 
@@ -252,10 +251,10 @@ int atlas(){
     hd_data->h_q_qd_u[28] = 1;
     hd_data->h_q_qd_u[29] = 0.1;
 
-    hd_data->h_q_qd_u[60] = 0.2;
+    hd_data->h_q_qd_u[60] = 0.1;
     hd_data->h_q_qd_u[61] = 0.1;
     hd_data->h_q_qd_u[62] = 0.1;
-    hd_data->h_q_qd_u[63] = 0.5;
+    hd_data->h_q_qd_u[63] = 0.1;
     hd_data->h_q_qd_u[64] = 0.1;
     hd_data->h_q_qd_u[65] = 0.1;
     hd_data->h_q_qd_u[66] = 0.1;
@@ -283,10 +282,10 @@ int atlas(){
     hd_data->h_q_qd_u[88] = 0.1;
     hd_data->h_q_qd_u[89] = 0.1;
 
-    hd_data->h_q_qd_u[30] = 0.2;
+    hd_data->h_q_qd_u[30] = 0.1;
     hd_data->h_q_qd_u[31] = 0.1;
     hd_data->h_q_qd_u[32] = 0.1;
-    hd_data->h_q_qd_u[33] = 0.5;
+    hd_data->h_q_qd_u[33] = 0.1;
     hd_data->h_q_qd_u[34] = 0.1;
     hd_data->h_q_qd_u[35] = 0.1;
     hd_data->h_q_qd_u[36] = 0.1;
@@ -388,7 +387,7 @@ int atlas(){
     printf("crba\n");
     grid::crba<float>(hd_data, d_robotModel, gravity, 1, dim3(1,1,1), dimms, streams);
     printf("M = \n");
-    printMat<float,1,grid::NUM_JOINTS>(hd_data->h_H,1);
+    printMat<float,1,grid::NUM_JOINTS>(hd_data->h_M,1);
     
     return 0;
 }
