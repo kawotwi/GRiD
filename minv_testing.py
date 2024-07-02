@@ -1,8 +1,8 @@
 # minv_testing.py: a benchmark testing file comparing pinocchio and grid
 # GRiD Imports
-from URDFParser import URDFParser
-from RBDReference import RBDReference
-from GRiDCodeGenerator import GRiDCodeGenerator
+from RBDReference.RBDReference import RBDReference # depending on system .RBDReference is unnecessary
+from URDFParser.URDFParser import URDFParser # depending on system .URDFParser is unnecessary 
+# from GRiDCodeGenerator import GRiDCodeGenerator
 from util import parseInputs, printUsage, validateRobot, initializeValues, printErr
 import numpy as np
 # Piniocchio Imports
@@ -10,8 +10,8 @@ import pinocchio as pin
 from pinocchio.utils import * 
 import inspect
 
-def test_pinocchio(URDF_PATH, DEBUG_MODE, FLOATING_BASE):
-
+def main():
+    URDF_PATH, DEBUG_MODE, FLOATING_BASE = parseInputs()
     parser = URDFParser()
     robot = parser.parse(URDF_PATH, floating_base = FLOATING_BASE)
 
@@ -32,9 +32,16 @@ def test_pinocchio(URDF_PATH, DEBUG_MODE, FLOATING_BASE):
         _q = q[inds_q]
         Xmat = robot.get_Xmat_Func_by_id(curr_id)(_q)
         print('X[{}]\n{}'.format(curr_id, Xmat))
+        # review minv robot. calls
+        S = robot.get_S_by_id(curr_id)
+        subtreeInds = robot.get_subtree_by_id(curr_id)
+        parent_ind = robot.get_parent_id(curr_id)
+        print(f'{2*'#'} [ID: {curr_id}, ParentInd: {parent_ind}] {2*'#'}\nS:\n{S}')
 
-    (Gc, Gv, Ga, Gf) = reference.rnea(q, qd)
-    print('c\n{}\nv\n{}\na\n{}\nf\n{}'.format(Gc, Gv, Ga, Gf))
+    # print(f'Imats Dict: {robot.get_Imats_dict_by_id()}')
+    # print(f'Subtree ind type: {type(subtreeInds)}')
+    # (Gc, Gv, Ga, Gf) = reference.rnea(q, qd)
+    # print('c\n{}\nv\n{}\na\n{}\nf\n{}'.format(Gc, Gv, Ga, Gf))
     print(f'NB: {NB}, n: {len(q)}')
 
 
@@ -93,15 +100,16 @@ def test_pinocchio(URDF_PATH, DEBUG_MODE, FLOATING_BASE):
     """
     # # Minv calculations
     grid_minv = reference.test_minv(q)
+    # print(f'GRiD Minv ({grid_minv.shape}):\n{grid_minv}')
     pin_minv = pin.computeMinverse(robot_p.model,robot_p.data,q) # TODO double check accuracy
-    val_comparison(grid_minv, pin_minv)
+    # print(f'Pin Minv ({pin_minv.shape}) ({pin_minv.shape}):\n{pin_minv}')
+    val_comparison(grid_minv, pin_minv,calc_diff=False)
 
-    def val_comparison(val1, val2,calc_diff=False):
-        """Simple val comparison function for matrices of the same shape."""
-        print(f"{10*'#'}\n Method 1:\n {val1}")
-        print(f"{10*'#'}\n Method 2:\n {val1}")
-        if calc_diff: print(f"{10*'#'}\n Difference:\n {val1-val2}")
+def val_comparison(val1, val2,calc_diff=False):
+    """Simple val comparison function for matrices of the same shape."""
+    print(f"{10*'#'}\n Method 1 ({val1.shape}):\n {val1}")
+    print(f"{10*'#'}\n Method 2 ({val2.shape}):\n {val2}")
+    if calc_diff: print(f"{10*'#'}\n Difference:\n {val1-val2}")
 
 if __name__ == "__main__":
-    URDF_PATH, DEBUG_MODE, FLOATING_BASE = parseInputs()
-    test_pinocchio(URDF_PATH, DEBUG_MODE, FLOATING_BASE) 
+    main()
