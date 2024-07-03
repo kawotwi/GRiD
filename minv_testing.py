@@ -105,6 +105,14 @@ def main():
     # print(f'Pin Minv ({pin_minv.shape}) ({pin_minv.shape}):\n{pin_minv}')
     val_comparison(grid_minv, pin_minv,calc_diff=False)
 
+    # pinocchio crba inverse
+    pin_crba_h = pin.crba(robot_p.model,robot_p.data,q)
+    print(f"{10 * '#'}\n CRBA: \n{pin_crba_h}\n Inverse: {np.linalg.inv(pin_crba_h)}")
+
+    # GRiD crba
+    grid_crba = reference.crba(q,qd)
+    print(f"{10 * '#'}\n CRBA: \n{grid_crba}")
+
 def val_comparison(val1, val2,calc_diff=False):
     """Simple val comparison function for matrices of the same shape."""
     print(f"{10*'#'}\n Method 1 ({val1.shape}):\n {val1}")
