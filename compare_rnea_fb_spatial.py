@@ -1,8 +1,8 @@
 #! /usr/bin/env python3
 
-from URDFParser import URDFParser
-from RBDReference import RBDReference
-from GRiDCodeGenerator import GRiDCodeGenerator
+from URDFParser.URDFParser import URDFParser
+from RBDReference.RBDReference import RBDReference
+# from GRiDCodeGenerator import GRiDCodeGenerator
 from util import parseInputs, printUsage, validateRobot, initializeValues, printErr
 import numpy as np
 
@@ -29,7 +29,8 @@ def test_with_spatial():
     validateRobot(robot)
 
     reference = RBDReference(robot)
-    q, qd, qdd, _ = initializeValues(robot, MATCH_CPP_RANDOM = False)
+    q, qd, qdd, _ = initializeValues(robot, MATCH_CPP_RANDOM = True)
+    print(f'q: {q}\nqd: {qd}\nqdd: {qdd}')
 
     if not FLOATING_BASE:
         print("q = {" + "; ".join(str(x) for x in q) + "};")
