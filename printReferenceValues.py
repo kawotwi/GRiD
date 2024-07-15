@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-from URDFParser import URDFParser
-from RBDReference import RBDReference
+from URDFParser.URDFParser import URDFParser
+from RBDReference.RBDReference import RBDReference
 from GRiDCodeGenerator import GRiDCodeGenerator
 from util import parseInputs, printUsage, validateRobot, initializeValues, printErr
 import numpy as np
@@ -33,6 +33,7 @@ def main():
         print("X[",curr_id,"]")
         print(Xmat)
 
+    print("RNEA (Tau, Velocity, Acceleration, Force)")
     (c, v, a, f) = reference.rnea(q,qd)
     print("v")
     print(v)
@@ -47,21 +48,25 @@ def main():
     Minv = reference.minv(q)
     print(Minv)
 
+    print("CRBA")
+    M = reference.crba(q,qd)
+    print(M)
+
     print("qdd")
     qdd = np.matmul(Minv,(u-c))
     print(qdd)
 
-    dc_du = reference.rnea_grad(q, qd, qdd)
-    print("dc/dq with qdd")
-    print(dc_du[:,:n])
-    print("dc/dqd with qdd")
-    print(dc_du[:,n:])
+    # dc_du = reference.rnea_grad(q, qd, qdd)
+    # print("dc/dq with qdd")
+    # print(dc_du[:,:n])
+    # print("dc/dqd with qdd")
+    # print(dc_du[:,n:])
 
-    df_du = np.matmul(-Minv,dc_du)
-    print("df/dq")
-    print(df_du[:,:n])
-    print("df/dqd")
-    print(df_du[:,n:])
+    # df_du = np.matmul(-Minv,dc_du)
+    # print("df/dq")
+    # print(df_du[:,:n])
+    # print("df/dqd")
+    # print(df_du[:,n:])
 
     if DEBUG_MODE:
         print("-------------------")
