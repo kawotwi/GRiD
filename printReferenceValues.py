@@ -16,7 +16,7 @@ def main():
     reference = RBDReference(robot)
     q, qd, u, n = initializeValues(robot, MATCH_CPP_RANDOM = True)
 
-    qd = 0*qd
+    # qd = 0*qd
 
     print("q")
     print(q)
@@ -56,17 +56,22 @@ def main():
     qdd = np.matmul(Minv,(u-c))
     print(qdd)
 
-    # dc_du = reference.rnea_grad(q, qd, qdd)
-    # print("dc/dq with qdd")
-    # print(dc_du[:,:n])
-    # print("dc/dqd with qdd")
-    # print(dc_du[:,n:])
+    # NOTE qdd above does not match qdd below... why is that? Check same calculation in matlab of Minv @ (u-c)
+    print("dc_dq") 
+    # qdd = np.array([0.741788, 1.92844, -0.903882, 0.0333959, 1.17986, -1.94599, 0.32869, -0.139457, 2.00667, -0.519292, -0.711198, 0.376638, -0.209225])
+    qdd = u
+    # dc_dq,dc_dqd = reference.rnea_derivatives(q,qd,qdd)
+    dc_dq, dc_dqd = reference.rnea_grad(q, qd, qdd)
+    print(dc_dq)
+    print("dc_dqd")
+    print(dc_dqd)
 
-    # df_du = np.matmul(-Minv,dc_du)
-    # print("df/dq")
-    # print(df_du[:,:n])
-    # print("df/dqd")
-    # print(df_du[:,n:])
+    df_dq = np.matmul(-Minv,dc_dq)
+    df_dqd = np.matmul(-Minv,dc_dqd)
+    print("df/dq")
+    print(df_dq)
+    print("df/dqd")
+    print(df_dqd)
 
     if DEBUG_MODE:
         print("-------------------")
