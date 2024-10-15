@@ -16,7 +16,7 @@ def main():
     reference = RBDReference(robot)
     q, qd, u, n = initializeValues(robot, MATCH_CPP_RANDOM = True)
 
-    # qd = 0*qd
+    u = 0*u
 
     print("q")
     print(q)
@@ -51,10 +51,16 @@ def main():
     print("CRBA")
     M = reference.crba(q,qd)
     print(M)
+    print('Minv - inv(M): Testing CRBA vs. Minv (should be zero)')
+    print(np.linalg.inv(M) - Minv)
 
     print("qdd")
     qdd = np.matmul(Minv,(u-c))
     print(qdd)
+
+    print('aba')
+    aba_qdd = reference.aba(q,qd,c, f_ext = [])
+    print(aba_qdd)
 
     # NOTE qdd above does not match qdd below... why is that? Check same calculation in matlab of Minv @ (u-c)
     print("dc_dq") 
@@ -66,12 +72,25 @@ def main():
     print("dc_dqd")
     print(dc_dqd)
 
+    dqdd_dq, dqdd_dqd, dqdd_dc = reference.forward_dynamics_grad(q,qd,c)
+    print("dqdd_dq")
+    print(dqdd_dq)
+    print("dqdd_dqd")
+    print(dqdd_dqd)
+    print("dqdd_dc")
+    print(dqdd_dc)
+
+    # forward dynamics
     df_dq = np.matmul(-Minv,dc_dq)
     df_dqd = np.matmul(-Minv,dc_dqd)
-    print("df/dq")
+    print(f"df/dq {df_dq.shape}")
     print(df_dq)
     print("df/dqd")
     print(df_dqd)
+
+    external_forces = np.zeros((6,NB))
+    qdd = reference.aba(q,qd,c, f_ext = [])
+
 
     if DEBUG_MODE:
         print("-------------------")
