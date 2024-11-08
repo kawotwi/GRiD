@@ -1,0 +1,29 @@
+/* Override theme colors and styles */
+.wy-side-nav-search {
+    background-color: #2980B9;
+}
+
+.wy-nav-side {
+    position: sticky;
+    top: 0;
+    background: #343131;
+}
+
+.rst-content .section h1 {
+    border-bottom: 2px solid #2980B9;
+    padding-bottom: 10px;
+}
+
+.rst-content .section h2 {
+    border-bottom: 1px solid #e1e4e5;
+    padding-bottom: 5px;
+}
+
+.wy-menu-vertical li.current {
+    background: #fcfcfc;
+}
+
+.navbar-brand img {
+    height: 40px; 
+    width: auto;
+}
