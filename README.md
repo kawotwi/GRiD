@@ -1,5 +1,7 @@
 # GRiD
 
+[![Python Tests](https://github.com/kawotwi/GRiD/actions/workflows/python_tests.yml/badge.svg)](https://github.com/kawotwi/GRiD/actions/workflows/python_tests.yml)
+
 A GPU-accelerated library for computing rigid body dynamics with analytical gradients.
 
 GRiD wraps our [URDFParser](https://github.com/robot-acceleration/URDFParser), [GRiDCodeGenerator](https://github.com/robot-acceleration/GRiDCodeGenerator), and [RBDReference](https://github.com/robot-acceleration/RBDReference) packages. Using its scripts, users can easily generate and test optimized rigid body dynamics CUDA C++ code for their URDF files.

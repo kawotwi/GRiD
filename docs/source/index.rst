@@ -6,15 +6,32 @@
 Welcome to GRiD Documentation
 =============================
 
+This is a template landing page for GRiD documentation. The structure of the site needs work, but is currently in development and open to feedback.
+
 Add your content using ``reStructuredText`` syntax. See the
 `reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
+documentation for details. It is also possible to convert README.md files and syntax used in README files to reStructuredText using `pandoc <https://pandoc.org/>`_.
+
+.. code-block::
+   :caption: Bash commands to convert README.md to reStructuredText
+
+       # For most systems
+       brew install pandoc          # macOS (Homebrew)
+       sudo apt install pandoc      # debian/ubuntu
+       pandoc README.md -f markdown -t rst -o README.rst
+
+``-f markdown`` specifies the input format and ``-t rst`` specifies the output format. ``-o README.rst`` specifies the output file.
+
 
 .. toctree::
    :maxdepth: 2
    :caption: User Guide
 
    user_guide/landing_page
+   faq
+   contribution_guidelines
+   sphinx_edit_guide
+   todo_list
 
 
 Citation 
