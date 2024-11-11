@@ -6,10 +6,10 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'sphinx_grid'
+project = 'GRiD'
 copyright = '2024, Kwamena Awotwi, Zachary Pestrikov, Danelle Tuchman, Abhinav Sharma, Brian Plancher'
 author = 'Kwamena Awotwi, Zachary Pestrikov, Danelle Tuchman, Abhinav Sharma, Brian Plancher'
-release = '11/15/2024'
+release = '1.0.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -25,9 +25,6 @@ extensions = [
 	'sphinx.ext.viewcode',
     'sphinx.ext.autosectionlabel',
     'sphinx.ext.intersphinx',
-    "sphinx_togglebutton",
-    "sphinx_design",
-    "myst_parser"
 ]
 
 #myst parser
@@ -79,16 +76,17 @@ latex_elements = {
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'pydata_sphinx_theme'
-html_theme_options = {
-    'navigation_depth': 4,
-    'collapse_navigation': False,
-    'sticky_navigation': True, 
-    'style_nav_header_background': '#2980B9',
-    'logo_only': False,
-    "github_url": "https://github.com/kawotwi/GRiD", # Link to github
-    "use_edit_page_button": True, # Enables edit button
-}
+# html_theme = 'pydata_sphinx_theme'
+html_theme = 'furo'
+# html_theme_options = {
+#     'navigation_depth': 4,
+#     'collapse_navigation': False,
+#     'sticky_navigation': True, 
+#     'style_nav_header_background': '#2980B9',
+#     'logo_only': False,
+#     "github_url": "https://github.com/kawotwi/GRiD", # Link to github
+#     "use_edit_page_button": True, # Enables edit button
+# }
 html_static_path = ['_static']
 html_css_files = ['custom.css']
 html_logo = "_static/a2r_lab.jpg"

@@ -15,6 +15,12 @@ and
 packages. Using its scripts, users can easily generate and test
 optimized rigid body dynamics CUDA C++ code for their URDF files.
 
+See here for usage information on each module:
+* :doc:`URDFParser <tutorials/urdf_parser>`
+* :doc:`GRiDCodeGenerator <tutorials/codegen>`
+* :doc:`RBDReference <tutorials/python_algorithms>`
+
+
 For additional information and links to our paper on this work, check
 out our `project
 website <https://brianplancher.com/publication/GRiD>`__.
@@ -22,7 +28,7 @@ website <https://brianplancher.com/publication/GRiD>`__.
 **This package contains submodules make sure to run
 ``git submodule update --init --recursive``** after cloning!
 
-.. figure:: /imgs/GRiD.png
+.. figure:: ../imgs/GRiD.png
    :alt: GRiD Library ecosystem
    :width: 80%
    :align: center
