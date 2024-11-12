@@ -1,13 +1,13 @@
 <!doctype html>
 <html class="no-js" lang="en" data-content_root="./">
-  <head>
-<meta charset="utf-8"/>
+  <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="#" />
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="How to Edit and Deploy the Documentation" href="sphinx_edit_guide.html" /><link rel="prev" title="Fall 2024 Tasks" href="todo_list.html" />
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
-<meta name="robots" content="noindex" />
-<title>Search - GRiD 1.0.0 documentation</title><link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+        <title>Contributing to Project - GRiD 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css?v=f223caa5" />
@@ -179,7 +179,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -196,14 +196,14 @@
   
   <span class="sidebar-brand-text">GRiD 1.0.0 documentation</span>
   
-</a><form class="sidebar-search-container" method="get" action="#" role="search">
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1 has-children"><a class="reference internal" href="user_guide/landing_page.html">User Guide</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of User Guide</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="user_guide/getting_started/installation.html">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user_guide/getting_started/library_overview.html">Library Overview</a></li>
@@ -230,7 +230,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="todo_list.html">Fall 2024 Tasks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contribution_guidelines.html">Contributing to Project</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Contributing to Project</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sphinx_edit_guide.html">How to Edit and Deploy the Documentation</a></li>
 </ul>
 
@@ -251,7 +251,13 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+          <div class="view-this-page">
+  <a class="muted-link" href="_sources/contribution_guidelines.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
@@ -260,31 +266,111 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          
-<noscript>
-<div class="admonition error">
-  <p class="admonition-title">Error</p>
-  <p>
-    Please activate JavaScript to enable the search functionality.
-  </p>
-</div>
-</noscript>
-
-<div id="search-results"></div>
+          <section id="contributing-to-project">
+<h1>Contributing to Project<a class="headerlink" href="#contributing-to-project" title="Link to this heading">¶</a></h1>
+<p>We welcome contributions to our project! By participating in this project, you agree to abide by the guidelines and rules set forth below. These guidelines will help maintain the quality and consistency of the codebase.</p>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p><cite>How to Contribute</cite></p></li>
+<li><p><cite>Code of Conduct</cite></p></li>
+<li><p><cite>Pull Request Process</cite></p></li>
+<li><p><cite>Testing and Documentation</cite></p></li>
+<li><p><cite>Code Style</cite></p></li>
+</ol>
+</section>
+<section id="how-to-contribute">
+<h2>How to Contribute<a class="headerlink" href="#how-to-contribute" title="Link to this heading">¶</a></h2>
+<p>We encourage you to contribute in the following ways:</p>
+<ol class="arabic simple">
+<li><p><strong>Fork the Repository</strong>: Start by forking the repository to your own GitHub account.</p></li>
+<li><p><strong>Create a Branch</strong>: Make sure to create a branch for the work you’re doing. For example, if you are adding a new feature, name your branch <cite>feature/feature-name</cite>.</p></li>
+<li><p><strong>Make Changes</strong>: Implement the changes or additions you would like to contribute. Ensure your code follows the existing code style and structure.</p></li>
+<li><p><strong>Commit and Push</strong>: Commit your changes with descriptive commit messages. Push the changes to your forked repository.</p></li>
+<li><p><strong>Create a Pull Request</strong>: Once your changes are ready, create a pull request (PR) to merge your branch into the main repository. Please make sure your PR includes a clear description of the changes, including the reasoning for your modification.</p></li>
+</ol>
+</section>
+<section id="code-of-conduct">
+<h2>Code of Conduct<a class="headerlink" href="#code-of-conduct" title="Link to this heading">¶</a></h2>
+<p>We are committed to fostering a welcoming and respectful environment for all contributors. Please be considerate, kind, and respectful in your interactions with others.</p>
+<p>We follow the [Contributor Covenant Code of Conduct](<a class="reference external" href="https://www.contributor-covenant.org/">https://www.contributor-covenant.org/</a>), which you can read more about here. If you experience or witness any behavior that violates this code, please contact the project maintainers.</p>
+</section>
+<section id="pull-request-process">
+<h2>Pull Request Process<a class="headerlink" href="#pull-request-process" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Review the Open Issues</strong>: Before creating a pull request, check if there is an open issue for your change. If there isn’t, please create an issue describing your change.</p></li>
+<li><p><strong>Follow the Issue Template</strong>: If you’re submitting a bug fix or new feature, please follow the respective issue template to help maintain consistency.</p></li>
+<li><p><strong>Ensure Your Code Passes Tests</strong>: Ensure your code passes the automated tests before submitting. This includes writing new tests if necessary.</p></li>
+<li><p><strong>Request Review</strong>: Once your pull request is created, request a review from the maintainers. Be open to feedback and suggestions.</p></li>
+<li><p><strong>Merge Your Changes</strong>: After approval, the maintainers will merge your pull request into the main codebase. You can merge your changes if you have permission.</p></li>
+</ol>
+</section>
+<section id="testing-and-documentation">
+<h2>Testing and Documentation<a class="headerlink" href="#testing-and-documentation" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Automated Testing</strong>: All contributions must pass our automated tests. This helps ensure that no changes break existing functionality. Please run the tests before submitting your pull request.</p></li>
+<li><p><strong>New Tests</strong>: If your change introduces new functionality, please write tests for your code. Tests should be added in the appropriate test suite.</p></li>
+<li><p><strong>Documentation</strong>: All contributions should include relevant documentation. This includes code comments and updating the project’s documentation. Make sure to provide clear explanations for new functions or features.</p></li>
+</ul>
+</section>
+<section id="code-style">
+<h2>Code Style<a class="headerlink" href="#code-style" title="Link to this heading">¶</a></h2>
+<p>We use the following guidelines for code style:</p>
+<ul class="simple">
+<li><p><strong>Python Code</strong>:
+- Follow [PEP 8](<a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">https://www.python.org/dev/peps/pep-0008/</a>).
+- Use 4 spaces per indentation level.
+- Avoid using <cite>print()</cite> statements for debugging. Use logging or proper exception handling.</p></li>
+<li><p><strong>Commit Messages</strong>:
+- Use clear, concise commit messages.
+- Start the message with a capital letter.
+- Use the present tense (“Fix bug” not “Fixed bug”).
+- Include a description of why the change is needed.</p></li>
+<li><p><strong>Docstrings</strong>:
+- Use docstrings to describe all public functions and classes.
+- Follow the [Google Style Python Docstrings](<a class="reference external" href="https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html">https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html</a>).</p></li>
+<li><p><strong>Code Formatting</strong>:
+- We use <cite>black</cite> to format Python code. Make sure your changes are formatted using <cite>black</cite> before submitting.</p></li>
+</ul>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Link to this heading">¶</a></h2>
+<p>By contributing to this project, you agree that your contributions will be licensed under the project’s license (typically MIT or similar open-source license).</p>
+<p>Thank you for contributing to this project!</p>
+</section>
+</section>
 
         </article>
       </div>
       <footer>
         
         <div class="related-pages">
-          
-          
+          <a class="next-page" href="sphinx_edit_guide.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">How to Edit and Deploy the Documentation</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="todo_list.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Fall 2024 Tasks</div>
+                
+              </div>
+            </a>
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -303,8 +389,33 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Contributing to Project</a><ul>
+<li><a class="reference internal" href="#table-of-contents">Table of Contents</a></li>
+<li><a class="reference internal" href="#how-to-contribute">How to Contribute</a></li>
+<li><a class="reference internal" href="#code-of-conduct">Code of Conduct</a></li>
+<li><a class="reference internal" href="#pull-request-process">Pull Request Process</a></li>
+<li><a class="reference internal" href="#testing-and-documentation">Testing and Documentation</a></li>
+<li><a class="reference internal" href="#code-style">Code Style</a></li>
+<li><a class="reference internal" href="#license">License</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
@@ -313,8 +424,5 @@
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=5fa4622c"></script>
-    
-<script src="_static/searchtools.js"></script>
-<script src="_static/language_data.js"></script>
-<script src="searchindex.js"></script></body>
+    </body>
 </html>

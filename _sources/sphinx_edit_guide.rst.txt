@@ -1,0 +1,55 @@
+========================================
+How to Edit and Deploy the Documentation
+========================================
+
+Welcome to the guide on how to edit and deploy the Sphinx documentation for our project. This document will provide instructions on how to modify, build, and deploy the documentation locally and on the web.
+
+Table of Contents
+=================
+1. `Editing the Documentation`
+2. `Building the Documentation Locally`
+3. `Deploying the Documentation`
+4. `Editing Code and Running Locally`
+5. `Deploying the Code`
+
+Editing the Documentation
+=========================
+
+To begin editing the documentation, follow these steps:
+
+1. **Clone the repository**:
+   If you haven't already cloned the repository, use the following command to clone the project:
+
+   ```bash
+   git clone https://github.com/A2R-Lab/GRiD.git
+
+
+2. **Locate the Documentation Files**:
+    The Sphinx documentation files are located in the docs/ directory (or a similar name depending on the project setup). 
+    Inside this directory, you will find index.rst (the main entry point) and other .rst files that contain the content.
+
+3. **Edit .rst Files**: 
+    To edit the documentation, open any .rst file using a text editor (such as VSCode, Atom, or Sublime Text).
+    The primary file is index.rst, but other files are organized in subdirectories.
+
+4. **Preview Changes Locally**:
+    After making changes you can build locally to preview the changes. See Makefile for instructions for deployment (can use ``make all``)
+
+Building Documentaiton Locally
+==============================
+
+1. **Install Dependencies**:
+    Before building the documentation, ensure you have the necessary dependencies installed. 
+    You can install the dependencies using the following command:
+
+    ```bash
+    python3 -m venv venvsource venv/bin/activate
+    pip install -r requirements.txt
+
+2. **Build the Documentation**:
+    sphinx-build -b html docs/source docs/build
+
+3. **View Locally**:
+    After building the documentation, you can view it locally by opening the index.html file in your browser.
+
+To be completed...

@@ -28,6 +28,9 @@ documentation for details. It is also possible to convert README.md files and sy
    :caption: User Guide
 
    user_guide/landing_page
+   todo_list
+   contribution_guidelines
+   sphinx_edit_guide
 
 
 Citation 
