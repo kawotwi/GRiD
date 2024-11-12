@@ -1,6 +1,6 @@
-======================
+========================
 Contributing to Project
-======================
+========================
 
 We welcome contributions to our project! By participating in this project, you agree to abide by the guidelines and rules set forth below. These guidelines will help maintain the quality and consistency of the codebase.
 

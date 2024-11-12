@@ -2,7 +2,7 @@ Installation
 ============
 
 It is recommended when installing GRiD to use git clone on the main library `GRiD <https://github.com/robot-acceleration/GRiD>`.
-In the case that the linked submodules :doc:`URDFParser <tutorials/urdf_parser>`, :doc:`GRiDCodeGenerator <tutorials/codegen>`, :doc:`RBDReference <tutorials/python_algorithms>` and are empty folders,
+In the case that the linked submodules :doc:`URDFParser <../tutorials/urdf_parser>`, :doc:`GRiDCodeGenerator <../tutorials/codegen>`, :doc:`RBDReference <../tutorials/python_algorithms>` and are empty folders,
 one can individually popoulate each submodule using its git link as needed. 
 
 Run the following script to install GRiD and its related submodules.
@@ -10,6 +10,7 @@ Run the following script to install GRiD and its related submodules.
 `GRiDCodeGenerator <https://github.com/robot-acceleration/GRiDCodeGenerator>`__,
 and
 `RBDReference <https://github.com/robot-acceleration/RBDReference>`__
+
 .. code:: shell
 
     # In the root of your desired project directory
@@ -31,7 +32,7 @@ and
 
 It is also recommended to create a virtual environment for each external dependency for ease of access. Run the following script to list and update the requirements tab if other dependencies are needed during the installation process.
 
-.. code:: shell
+.. code-block:: shell
 
     # Run in virtual enviornment
     pip3 list # list all pip modules
@@ -44,7 +45,7 @@ In order to support the wrapped packages there are 4 required external
 packages ``beautifulsoup4, lxml, numpy, sympy`` which can be
 automatically installed by running:
 
-.. code:: shell
+.. code-block:: shell
 
    pip3 install -r requirements.txt
 
