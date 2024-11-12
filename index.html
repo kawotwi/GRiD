@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="User Guide" href="user_guide/landing_page.html" />
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
-        <title>sphinx_grid 11/15/2024 documentation</title>
+        <title>GRiD 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
@@ -167,7 +167,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="#"><div class="brand">sphinx_grid 11/15/2024 documentation</div></a>
+      <a href="#"><div class="brand">GRiD 1.0.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -194,7 +194,7 @@
     <img class="sidebar-logo" src="_static/a2r_lab.jpg" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">sphinx_grid 11/15/2024 documentation</span>
+  <span class="sidebar-brand-text">GRiD 1.0.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -271,9 +271,20 @@
         <article role="main" id="furo-main-content">
           <section id="welcome-to-grid-documentation">
 <h1>Welcome to GRiD Documentation<a class="headerlink" href="#welcome-to-grid-documentation" title="Link to this heading">¶</a></h1>
+<p>This is a template landing page for GRiD documentation. The structure of the site needs work, but is currently in development and open to feedback.</p>
 <p>Add your content using <code class="docutils literal notranslate"><span class="pre">reStructuredText</span></code> syntax. See the
 <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html">reStructuredText</a>
-documentation for details.</p>
+documentation for details. It is also possible to convert README.md files and syntax used in README files to reStructuredText using <a class="reference external" href="https://pandoc.org/">pandoc</a>.</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-number">Listing 1 </span><span class="caption-text">Bash commands to convert README.md to reStructuredText</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="c1"># For most systems</span>
+    <span class="n">brew</span> <span class="n">install</span> <span class="n">pandoc</span>          <span class="c1"># macOS (Homebrew)</span>
+    <span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">pandoc</span>      <span class="c1"># debian/ubuntu</span>
+    <span class="n">pandoc</span> <span class="n">README</span><span class="o">.</span><span class="n">md</span> <span class="o">-</span><span class="n">f</span> <span class="n">markdown</span> <span class="o">-</span><span class="n">t</span> <span class="n">rst</span> <span class="o">-</span><span class="n">o</span> <span class="n">README</span><span class="o">.</span><span class="n">rst</span>
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">-f</span> <span class="pre">markdown</span></code> specifies the input format and <code class="docutils literal notranslate"><span class="pre">-t</span> <span class="pre">rst</span></code> specifies the output format. <code class="docutils literal notranslate"><span class="pre">-o</span> <span class="pre">README.rst</span></code> specifies the output file.</p>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -362,7 +373,7 @@ documentation for details.</p>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=30b74be3"></script>
+</div><script src="_static/documentation_options.js?v=8d563738"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=5fa4622c"></script>
