@@ -6,7 +6,8 @@ Welcome to the guide on how to edit and deploy the Sphinx documentation for our 
 
 Follow the instructions below for tips on how to edit, build, deploy, and run the code locally. The docs folder currently has the following structure:
 
-.. code::
+.. code:: shell
+
     docs
     ├── source/
     │   ├── _static/
@@ -33,6 +34,7 @@ Follow the instructions below for tips on how to edit, build, deploy, and run th
     │   └── index.rst
     └── Makefile & etc...
 
+
 .. note::
     When making changes to any of the above files, note the existence of a ``toctree`` at the bottom of some files.
     ``index.rst`` files typically point to other files. In order for your new file to be a part of documentation, ensure that it is included in the toctree in its folder or the previous folder.
@@ -40,7 +42,7 @@ Follow the instructions below for tips on how to edit, build, deploy, and run th
 
 
 Table of Contents
-=================
+------------------
 1. `Editing the Documentation`
 2. `Building the Documentation Locally`
 3. `Deploying the Documentation`
@@ -77,7 +79,19 @@ Building Documentaiton Locally
     Before building the documentation, ensure you have the necessary dependencies installed. 
     You can install the dependencies using the following command:
 
-.. code::bash
+.. code:: bash
+
+    pip install sphinx
+    pip install furo # html theme
+    pip install sphinx-rtd-theme #read the docs theme
+
+.. note::
+
+    If there are missing themes, easily pip install them as well as extensions.
+
+
+.. code:: bash
+
     python3 -m venv venvsource venv/bin/activate
     pip3 install -r requirements.txt
 
@@ -86,5 +100,16 @@ Building Documentaiton Locally
 
 3. **View Locally**:
     After building the documentation, you can view it locally by opening the index.html file in your browser.
+
+.. code:: bash
+
+    # without using npm
+    sphinx-build -b html . ../build # this updates files and builds 
+    python -m http.server 8000 #
+
+    # using npm
+    npm install -g http-server
+    http-server ./build # run to view server in docs directory
+
 
 To be completed...

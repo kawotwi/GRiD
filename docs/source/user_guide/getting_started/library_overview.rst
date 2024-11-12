@@ -4,7 +4,7 @@ Library Overview
 Each submodule of GRiD is an essential component to getting the most out of GRiD as a whole. Here we will discuss how each module relates to each other. 
 
 Table of Contents
-==================
+-----------------
 I. `RBDReference`
 II. `URDFParser`
 III. `GRiDCodeGenerator`

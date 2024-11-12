@@ -13,7 +13,7 @@ Add your content using ``reStructuredText`` syntax. See the
 documentation for details. It is also possible to convert README.md files and syntax used in README files to reStructuredText using `pandoc <https://pandoc.org/>`_.
 
 .. code-block::
-   :caption: Bash commands to convert README.md to reStructuredText
+   :caption:  Bash commands to convert README.md to reStructuredText
 
        # For most systems
        brew install pandoc          # macOS (Homebrew)
@@ -28,6 +28,9 @@ documentation for details. It is also possible to convert README.md files and sy
    :caption: User Guide
 
    user_guide/landing_page
+   gridcodegenerator
+   rbdreference
+   urdfparser
    faq
    contribution_guidelines
    sphinx_edit_guide

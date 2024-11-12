@@ -1,5 +1,5 @@
-RBDReference
-============
+RBDReference index
+===================
 
 A Python reference implementation of rigid body dynamics algorithms.
 
@@ -82,3 +82,5 @@ installed by running:
 This package also depends on our
 `URDFParser <https://github.com/robot-acceleration/URDFParser>`__
 package.
+
+Eventually add subilnks to each python function!!
