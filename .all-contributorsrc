@@ -1,6 +1,36 @@
 {
-  "projectName": "GRiD",
-  "projectOwner": "kawotwi",
-  "files": ["README.md"],
-  "branch": "floating-base"
+    "projectName": "GRiD",
+    "projectOwner": "kawotwi",
+    "files": [
+        "contents/contributors.qmd",
+        "README.md"
+    ],
+    "contributors": [
+        {
+            "login": "kawotwi",
+            "name": "Kwamena A",
+            "avatar_url": "https://avatars.githubusercontent.com/kawotwi",
+            "profile": "https://github.com/kawotwi",
+            "contributions": []
+        },
+        {
+            "login": "plancherb1",
+            "name": "Brian Plancher",
+            "avatar_url": "https://avatars.githubusercontent.com/plancherb1",
+            "profile": "https://github.com/plancherb1",
+            "contributions": []
+        },
+        {
+            "login": "naren-loganathan",
+            "name": "Naren Loganathan",
+            "avatar_url": "https://avatars.githubusercontent.com/naren-loganathan",
+            "profile": "https://github.com/naren-loganathan",
+            "contributions": []
+        }
+    ],
+    "repoType": "github",
+    "contributorsPerLine": 5,
+    "repoHost": "https://github.com",
+    "commitConvention": "angular",
+    "skipCi": true
 }
