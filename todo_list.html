@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Contributing to Project" href="contribution_guidelines.html" /><link rel="prev" title="GRiD Methedology" href="user_guide/concepts/grid_methedology.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="Editing Sphinx Documentation" href="sphinx_edit_guide.html" />
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
-        <title>Fall 2024 Tasks - GRiD 1.0.0 documentation</title>
+        <title>Fall 2024 Tasks! - GRiD 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
@@ -229,9 +229,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Fall 2024 Tasks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gridcodegenerator.html">GRiDCodeGenerator index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rbdreference.html">RBDReference index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="urdfparser.html">URDFParser index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ and Bug Fixes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contribution_guidelines.html">Contributing to Project</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sphinx_edit_guide.html">How to Edit and Deploy the Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sphinx_edit_guide.html">Editing Sphinx Documentation</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Fall 2024 Tasks!</a></li>
 </ul>
 
 </div>
@@ -273,88 +277,93 @@
         </div>
         <article role="main" id="furo-main-content">
           <section id="fall-2024-tasks">
-<h1>Fall 2024 Tasks<a class="headerlink" href="#fall-2024-tasks" title="Link to this heading">¶</a></h1>
+<h1>Fall 2024 Tasks!<a class="headerlink" href="#fall-2024-tasks" title="Link to this heading">¶</a></h1>
 <p>This is the To-Do list for Fall 2024, outlining both must-have and nice-to-have tasks for the GRiD project.</p>
 <section id="must-haves">
 <h2>Must Haves<a class="headerlink" href="#must-haves" title="Link to this heading">¶</a></h2>
-<ol class="arabic">
-<li><p><strong>Base Case and Code Integration</strong>
-- [ ] Get everything working on all base cases (Expected 10/25)
-- [ ] Integrate all code from the academic year into mainline A2R/GRiD
-- [ ] Continue adding documentation for each function (Google Test, Pybind)
-- [ ] Add Github badges for tests passing and documentation coverage</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>See example: <a class="reference external" href="https://github.com/rl-tools/rl-tools">https://github.com/rl-tools/rl-tools</a></p></li>
-</ul>
-</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Base Case and Code Integration</strong></p></li>
+</ol>
 <ul class="simple">
-<li><p>[ ] Set up standard testing suite (may not be straightforward)
-- [ ] Run test script locally and push a check to a file (testing file)
-- [ ] Ensure the commit is flagged as tested</p></li>
+<li><p>[ ] Get everything working on all base cases (Expected 10/25)</p></li>
+<li><p>[ ] Integrate all code from the academic year into mainline A2R/GRiD</p></li>
+<li><p>[ ] Continue adding documentation for each function (Google Test, Pybind)</p></li>
+<li><p>[ ] Add Github badges for tests passing and documentation coverage (<em>See example: https://github.com/rl-tools/rl-tools</em>)</p></li>
+<li><p>[ ] Set up standard testing suite (may not be straightforward)</p></li>
 <li><p>[ ] Test CUDA vs. Python automated testing to confirm correct values</p></li>
 <li><p>[ ] Add Python wrappers for calling CUDA</p></li>
 <li><p>[ ] GPU autointegration with testing? Docker?</p></li>
-<li><p>[ ] Ensure Python working bindings in the bindings directory
-- Directory should be simple: <cite>mpcgpu / ask alex</cite></p></li>
+<li><p>[ ] Ensure Python working bindings in the bindings directory</p></li>
 </ul>
-</li>
-<li><p><strong>Fixed Base Tasks</strong>
-- [ ] Merge Danelle’s CRBA and ABA on the GPU
-- [ ] Finish CRBA implementation
-- [ ] Merge with other new code</p></li>
-<li><p><strong>Floating Base Tasks</strong>
-- [ ] 2nd Order Dynamics Gradients (IDSVA)</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>[ ] In Python for floating base</p></li>
-<li><p>[ ] In CUDA on the GPU</p></li>
-</ul>
-</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p><strong>Fixed Base Tasks</strong></p></li>
+</ol>
 <ul class="simple">
+<li><p>[ ] Merge Danelle’s CRBA and ABA on the GPU</p></li>
+<li><p>[ ] Finish CRBA implementation</p></li>
+<li><p>[ ] Merge with other new code</p></li>
+</ul>
+<ol class="arabic simple" start="3">
+<li><p><strong>Floating Base Tasks</strong></p></li>
+</ol>
+<ul class="simple">
+<li><p>[ ] 2nd Order Dynamics Gradients (IDSVA) in Python for floating base and CUDA on the GPU</p></li>
 <li><p>[ ] Complete ABA, CRBA implementations on GPU</p></li>
 <li><p>[ ] Test and provide documentation for the usage of external forces</p></li>
 <li><p>[ ] Merge PR for RBDReference algorithms</p></li>
 <li><p>[ ] Test algorithms on Atlas and fix memory issues (if any)</p></li>
 <li><p>[ ] Integrate with Trajopt</p></li>
-<li><p>[ ] DDP GPU vs. CPU comparison:
-- [ ] DDP should converge faster than UDP and iLQR
-- [ ] Plot of total cost vs. iteration for pendulum sign-up cost
-- [ ] Plot of time vs. cost and total cost vs. iterations for first-order, second-order, and CPU baseline
-- [ ] Benchmark against second-order DDP paper (<a class="reference external" href="https://arxiv.org/pdf/2409.18327">https://arxiv.org/pdf/2409.18327</a>)</p></li>
+<li><p>[ ] DDP GPU vs. CPU comparison:</p></li>
 <li><p>[ ] Address memory issues and debug mode</p></li>
 <li><p>[ ] Handle memory challenges for large URDFs (Does Atlas work with GRiD codegen?)</p></li>
 <li><p>[ ] Optimize memory (e.g., F matrix in <cite>minv</cite>)</p></li>
 <li><p>[ ] Build automated testing for GRiD with Docker and CI</p></li>
 </ul>
-</li>
-<li><p><strong>Software and Documentation Tasks</strong>
-- [ ] Begin creating GitHub issues and a massive to-do list (ask team members to add anything)
-- [ ] Software stack for quadruped with demo
-- [ ] Stabilize baseline process
-- [ ] Automate building, testing, and documenting for GRiD</p></li>
+<ol class="arabic simple" start="4">
+<li><p><strong>Software and Documentation Tasks</strong></p></li>
 </ol>
+<ul class="simple">
+<li><p>[ ] Begin creating GitHub issues and a massive to-do list (ask team members to add anything)</p></li>
+<li><p>[ ] Software stack for quadruped with demo</p></li>
+<li><p>[ ] Stabilize baseline process</p></li>
+<li><p>[ ] Automate building, testing, and documenting for GRiD</p></li>
+<li><p>[ ] Follow Harvard contribution guidelines and add workflow to auto-add acknowledgements to people who commit/PR to repo.</p></li>
+</ul>
 </section>
 <section id="nice-to-haves">
 <h2>Nice to Haves<a class="headerlink" href="#nice-to-haves" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
-<li><p><strong>Extended Work</strong>
-- [ ] Consider extending work into a paper for conferences (e.g., 2nd order DDP | Parallel DDP paper)
-- [ ] Potential paper on supporting contact</p></li>
-<li><p><strong>CUDA Code Optimization</strong>
-- [ ] Develop a framework for writing portable, efficient CUDA code
-- [ ] Interactive Jupyter notebooks for demonstrations of code functionality with Python bindings</p></li>
-<li><p><strong>Docker and Automation</strong>
-- [ ] Build a fully self-contained Docker environment for reproducible builds
-- [ ] Add automated benchmarking and profiling pipeline for CUDA and Python performance
-- [ ] Integrate profiling tools like NVIDIA Nsight or <cite>nvprof</cite> for CUDA kernel performance</p></li>
-<li><p><strong>Collaborations and Open Source</strong>
-- [ ] Work with other GRiD teams (MCGPU PDDP) to help leverage GRiD
-- [ ] Set up open source contribution guidelines
-- [ ] Track the number of downloads
-- [ ] Consider incorporating the Glass library as a submodule
-- [ ] Add GRiDBenchmarks as a GRiD submodule</p></li>
+<li><p><strong>Extended Work</strong></p></li>
 </ol>
+<ul class="simple">
+<li><p>[ ] Consider extending work into a paper for conferences (e.g., 2nd order DDP | Parallel DDP paper)</p></li>
+<li><p>[ ] Potential paper on supporting contact</p></li>
+</ul>
+<ol class="arabic simple" start="2">
+<li><p><strong>CUDA Code Optimization</strong></p></li>
+</ol>
+<ul class="simple">
+<li><p>[ ] Develop a framework for writing portable, efficient CUDA code</p></li>
+<li><p>[ ] Interactive Jupyter notebooks for demonstrations of code functionality with Python bindings</p></li>
+</ul>
+<ol class="arabic simple" start="3">
+<li><p><strong>Docker and Automation</strong></p></li>
+</ol>
+<ul class="simple">
+<li><p>[ ] Build a fully self-contained Docker environment for reproducible builds</p></li>
+<li><p>[ ] Add automated benchmarking and profiling pipeline for CUDA and Python performance</p></li>
+<li><p>[ ] Integrate profiling tools like NVIDIA Nsight or <cite>nvprof</cite> for CUDA kernel performance</p></li>
+</ul>
+<ol class="arabic simple" start="4">
+<li><p><strong>Collaborations and Open Source</strong></p></li>
+</ol>
+<ul class="simple">
+<li><p>[ ] Work with other GRiD teams (MCGPU PDDP) to help leverage GRiD</p></li>
+<li><p>[ ] Set up open source contribution guidelines</p></li>
+<li><p>[ ] Track the number of downloads</p></li>
+<li><p>[ ] Consider incorporating the Glass library as a submodule</p></li>
+<li><p>[ ] Add GRiDBenchmarks as a GRiD submodule</p></li>
+</ul>
 </section>
 <section id="goals">
 <h2>Goals<a class="headerlink" href="#goals" title="Link to this heading">¶</a></h2>
@@ -367,29 +376,35 @@
 </section>
 <section id="week-by-week-timeline">
 <h2>Week-by-Week Timeline<a class="headerlink" href="#week-by-week-timeline" title="Link to this heading">¶</a></h2>
-<p><strong>By October 11th</strong>
-- [ ] Pull requests for floating base → main branch compatibility
-- [ ] Begin setting up automated testing suite for Python vs. CUDA
-- [ ] Obtain hardcoded value tests and results for all RBDReference algorithms
-- [ ] Ensure testing with external forces usage
-- [ ] Merge GRiDCodeGen code and update Readmes for submodules
-- [ ] Add documentation for code and algorithm testing instructions</p>
-<p><strong>By November 15th</strong>
-- [ ] Complete optimization pipeline for code generation, memory management, and kernel fusion
-- [ ] Plan for full GRiD launch
-- [ ] Coordinate paper drafts and potential conference submissions
-- [ ] Collaborate with the GRiD team to get documentation up and running (Sphinx or text files)
-- [ ] Begin setting up open source contribution guidelines
-- [ ] Finish setting up automated testing suite (Python vs. CUDA for all URDFs)
-- [ ] Implement automatic testing for Python vs. CUDA with Pass/Fail status
-- [ ] Add GitHub badge for testing: “Your commit has been tested successfully!”
-- [ ] Finish floating base ABA, CRBA implementations on GPU and have everything tested
-- [ ] Merge all GRiD forks/branches into the main branch</p>
-<p><strong>By November 29th</strong>
-- [ ] Complete optimization pipeline with auto-tuning, memory management, and dynamic scheduling
-- [ ] Have Sphinx/documentation up-to-date with unit testing framework (Catch2 or Google Test)
-- [ ] Begin testing on real hardware (quadruped software stack)
-- [ ] Finalize GRiD’s open-source code guidelines and operational status</p>
+<p><strong>By October 11th</strong></p>
+<ul class="simple">
+<li><p>[ ] Pull requests for floating base → main branch compatibility</p></li>
+<li><p>[ ] Begin setting up automated testing suite for Python vs. CUDA</p></li>
+<li><p>[ ] Obtain hardcoded value tests and results for all RBDReference algorithms</p></li>
+<li><p>[ ] Ensure testing with external forces usage</p></li>
+<li><p>[ ] Merge GRiDCodeGen code and update Readmes for submodules</p></li>
+<li><p>[ ] Add documentation for code and algorithm testing instructions</p></li>
+</ul>
+<p><strong>By November 15th</strong></p>
+<ul class="simple">
+<li><p>[ ] Complete optimization pipeline for code generation, memory management, and kernel fusion</p></li>
+<li><p>[ ] Plan for full GRiD launch</p></li>
+<li><p>[ ] Coordinate paper drafts and potential conference submissions</p></li>
+<li><p>[ ] Collaborate with the GRiD team to get documentation up and running (Sphinx or text files)</p></li>
+<li><p>[ ] Begin setting up open source contribution guidelines</p></li>
+<li><p>[ ] Finish setting up automated testing suite (Python vs. CUDA for all URDFs)</p></li>
+<li><p>[ ] Implement automatic testing for Python vs. CUDA with Pass/Fail status</p></li>
+<li><p>[ ] Add GitHub badge for testing: “Your commit has been tested successfully!”</p></li>
+<li><p>[ ] Finish floating base ABA, CRBA implementations on GPU and have everything tested</p></li>
+<li><p>[ ] Merge all GRiD forks/branches into the main branch</p></li>
+</ul>
+<p><strong>By November 29th</strong></p>
+<ul class="simple">
+<li><p>[ ] Complete optimization pipeline with auto-tuning, memory management, and dynamic scheduling</p></li>
+<li><p>[ ] Have Sphinx/documentation up-to-date with unit testing framework (Catch2 or Google Test)</p></li>
+<li><p>[ ] Begin testing on real hardware (quadruped software stack)</p></li>
+<li><p>[ ] Finalize GRiD’s open-source code guidelines and operational status</p></li>
+</ul>
 </section>
 </section>
 
@@ -398,23 +413,15 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="contribution_guidelines.html">
-              <div class="page-info">
-                <div class="context">
-                  <span>Next</span>
-                </div>
-                <div class="title">Contributing to Project</div>
-              </div>
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-            </a>
-          <a class="prev-page" href="user_guide/concepts/grid_methedology.html">
+          
+          <a class="prev-page" href="sphinx_edit_guide.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">GRiD Methedology</div>
+                <div class="title">Editing Sphinx Documentation</div>
                 
               </div>
             </a>
@@ -448,7 +455,7 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Fall 2024 Tasks</a><ul>
+<li><a class="reference internal" href="#">Fall 2024 Tasks!</a><ul>
 <li><a class="reference internal" href="#must-haves">Must Haves</a></li>
 <li><a class="reference internal" href="#nice-to-haves">Nice to Haves</a></li>
 <li><a class="reference internal" href="#goals">Goals</a></li>

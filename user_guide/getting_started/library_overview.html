@@ -179,7 +179,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -229,9 +229,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../todo_list.html">Fall 2024 Tasks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gridcodegenerator.html">GRiDCodeGenerator index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rbdreference.html">RBDReference index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../urdfparser.html">URDFParser index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ and Bug Fixes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contribution_guidelines.html">Contributing to Project</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../sphinx_edit_guide.html">How to Edit and Deploy the Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sphinx_edit_guide.html">Editing Sphinx Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../todo_list.html">Fall 2024 Tasks!</a></li>
 </ul>
 
 </div>
@@ -266,7 +270,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -274,7 +278,48 @@
         <article role="main" id="furo-main-content">
           <section id="library-overview">
 <h1>Library Overview<a class="headerlink" href="#library-overview" title="Link to this heading">¶</a></h1>
-<p>Here, I want to talk about the GRiD library overview.</p>
+<p>Each submodule of GRiD is an essential component to getting the most out of GRiD as a whole. Here we will discuss how each module relates to each other.</p>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">¶</a></h2>
+<ol class="upperroman simple">
+<li><p><cite>RBDReference</cite></p></li>
+<li><p><cite>URDFParser</cite></p></li>
+<li><p><cite>GRiDCodeGenerator</cite></p></li>
+</ol>
+</section>
+<section id="i-rbdreference">
+<h2>I. RBDReference<a class="headerlink" href="#i-rbdreference" title="Link to this heading">¶</a></h2>
+<p>RBDReference is composed of one essential file <code class="docutils literal notranslate"><span class="pre">RBDReference.py</span></code> which hosts a class of functions responsible for the easy-to-read rigid body dynamics algorithms in Python.</p>
+<p>It currently supports the following algorithmic functions which can be viewed from the function glossary:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">apply_external_forces</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rnea</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rnea_grad</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">minv</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aba</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">crba</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">forward_dynamics_grad</span></code></p></li>
+</ul>
+<p>Each of these functions and more included within the file call upon getters from URDFParser which initializes a convenient <code class="docutils literal notranslate"><span class="pre">robotObj</span></code>.
+Here is a list of relevant and helpful getters which can also be viewed from the function glossary for <code class="docutils literal notranslate"><span class="pre">URDFParser</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">self.robot.get_num_bodies()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">self.robot.get_parent_id()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">self.robot.get_joint_index_q()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">self.robot.get_Xmat_Func_by_id()()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">self.robot.get_Imat_by_id()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">self.robot.get_subtree_by_id()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">self.robot.get_num_vel()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">self.robot.get_S_by_id()</span></code></p></li>
+</ul>
+<p>This is just a short list, please look to the function glossary for <code class="docutils literal notranslate"><span class="pre">URDFParser</span></code> for more detailed usage instructions and guidelines.</p>
+</section>
+<section id="ii-urdfparser">
+<h2>II. URDFParser<a class="headerlink" href="#ii-urdfparser" title="Link to this heading">¶</a></h2>
+</section>
+<section id="iii-gridcodegenerator">
+<h2>III. GRiDCodeGenerator<a class="headerlink" href="#iii-gridcodegenerator" title="Link to this heading">¶</a></h2>
+</section>
 </section>
 
         </article>
@@ -320,8 +365,30 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Library Overview</a><ul>
+<li><a class="reference internal" href="#table-of-contents">Table of Contents</a></li>
+<li><a class="reference internal" href="#i-rbdreference">I. RBDReference</a></li>
+<li><a class="reference internal" href="#ii-urdfparser">II. URDFParser</a></li>
+<li><a class="reference internal" href="#iii-gridcodegenerator">III. GRiDCodeGenerator</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

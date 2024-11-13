@@ -179,7 +179,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -229,9 +229,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../todo_list.html">Fall 2024 Tasks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gridcodegenerator.html">GRiDCodeGenerator index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rbdreference.html">RBDReference index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../urdfparser.html">URDFParser index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ and Bug Fixes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contribution_guidelines.html">Contributing to Project</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../sphinx_edit_guide.html">How to Edit and Deploy the Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sphinx_edit_guide.html">Editing Sphinx Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../todo_list.html">Fall 2024 Tasks!</a></li>
 </ul>
 
 </div>
@@ -266,7 +270,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -274,7 +278,73 @@
         <article role="main" id="furo-main-content">
           <section id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h1>
-<p>Here is the installation page.</p>
+<p>It is recommended when installing GRiD to use git clone on the main library <cite>GRiD &lt;https://github.com/robot-acceleration/GRiD&gt;</cite>.
+In the case that the linked submodules <a class="reference internal" href="../tutorials/urdf_parser.html"><span class="doc">URDFParser</span></a>, <a class="reference internal" href="../tutorials/codegen.html"><span class="doc">GRiDCodeGenerator</span></a>, <a class="reference internal" href="../tutorials/python_algorithms.html"><span class="doc">RBDReference</span></a> and are empty folders,
+one can individually popoulate each submodule using its git link as needed.</p>
+<p>Run the following script to install GRiD and its related submodules.
+<a class="reference external" href="https://github.com/robot-acceleration/URDFParser">URDFParser</a>,
+<a class="reference external" href="https://github.com/robot-acceleration/GRiDCodeGenerator">GRiDCodeGenerator</a>,
+and
+<a class="reference external" href="https://github.com/robot-acceleration/RBDReference">RBDReference</a></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># In the root of your desired project directory</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/robot-acceleration/GRiD.git
+<span class="nb">cd</span><span class="w"> </span>RBDReference
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/robot-acceleration/RBDReference.git
+<span class="nb">cd</span><span class="w"> </span>..
+<span class="nb">cd</span><span class="w"> </span>URDFParser
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/robot-acceleration/URDFParser.git
+<span class="nb">cd</span><span class="w"> </span>..
+<span class="nb">cd</span><span class="w"> </span>GRiDCodeGenerator
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/robot-acceleration/GRiDCodeGenerator.git
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Alternatively, can directly download the zips from these links: <a class="reference external" href="https://github.com/robot-acceleration/URDFParser">URDFParser</a>, <a class="reference external" href="https://github.com/robot-acceleration/GRiDCodeGenerator">GRiDCodeGenerator</a>, and <a class="reference external" href="https://github.com/robot-acceleration/RBDReference">RBDReference</a>.
+Note that directory setup in this manner requires adjustment of python <code class="docutils literal notranslate"><span class="pre">import</span></code> statements such that <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">URDFParser</span> <span class="pre">import</span> <span class="pre">URDFParser</span></code> becomes <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">URDFParser.URDFParser</span> <span class="pre">import</span> <span class="pre">URDFParser</span></code>. Thus, each import statement from submodules will require an additional call for correct directory linking.</p>
+</div>
+<p>It is also recommended to create a virtual environment for each external dependency for ease of access. Run the following script to list and update the requirements tab if other dependencies are needed during the installation process.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run in virtual enviornment</span>
+pip3<span class="w"> </span>list<span class="w"> </span><span class="c1"># list all pip modules</span>
+pip<span class="w"> </span>freeze<span class="w"> </span>&gt;<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+<section id="install-python-dependencies">
+<h2>Install Python Dependencies<a class="headerlink" href="#install-python-dependencies" title="Link to this heading">¶</a></h2>
+<p>In order to support the wrapped packages there are 4 required external
+packages <code class="docutils literal notranslate"><span class="pre">beautifulsoup4,</span> <span class="pre">lxml,</span> <span class="pre">numpy,</span> <span class="pre">sympy</span></code> which can be
+automatically installed by running:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip3<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+</section>
+<section id="install-cuda-dependencies">
+<h2>Install CUDA Dependencies<a class="headerlink" href="#install-cuda-dependencies" title="Link to this heading">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>sudo apt-get update
+sudo apt-get -y install xorg xorg-dev linux-headers-$(uname -r) apt-transport-https
+</pre></div>
+</div>
+</section>
+<section id="download-and-install-cuda">
+<h2>Download and Install CUDA<a class="headerlink" href="#download-and-install-cuda" title="Link to this heading">¶</a></h2>
+<p>Note: for Ubuntu 20.04 see <a class="reference external" href="https://developer.nvidia.com/cuda-downloads">https://developer.nvidia.com/cuda-downloads</a>
+for other distros</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">developer</span><span class="o">.</span><span class="n">download</span><span class="o">.</span><span class="n">nvidia</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">compute</span><span class="o">/</span><span class="n">cuda</span><span class="o">/</span><span class="n">repos</span><span class="o">/</span><span class="n">ubuntu2004</span><span class="o">/</span><span class="n">x86_64</span><span class="o">/</span><span class="n">cuda</span><span class="o">-</span><span class="n">ubuntu2004</span><span class="o">.</span><span class="n">pin</span>
+<span class="n">sudo</span> <span class="n">mv</span> <span class="n">cuda</span><span class="o">-</span><span class="n">ubuntu2004</span><span class="o">.</span><span class="n">pin</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">preferences</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">cuda</span><span class="o">-</span><span class="n">repository</span><span class="o">-</span><span class="n">pin</span><span class="o">-</span><span class="mi">600</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">key</span> <span class="n">adv</span> <span class="o">--</span><span class="n">fetch</span><span class="o">-</span><span class="n">keys</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">developer</span><span class="o">.</span><span class="n">download</span><span class="o">.</span><span class="n">nvidia</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">compute</span><span class="o">/</span><span class="n">cuda</span><span class="o">/</span><span class="n">repos</span><span class="o">/</span><span class="n">ubuntu2004</span><span class="o">/</span><span class="n">x86_64</span><span class="o">/</span><span class="mi">7</span><span class="n">fa2af80</span><span class="o">.</span><span class="n">pub</span>
+<span class="n">sudo</span> <span class="n">add</span><span class="o">-</span><span class="n">apt</span><span class="o">-</span><span class="n">repository</span> <span class="s2">&quot;deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /&quot;</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="o">-</span><span class="n">y</span> <span class="n">install</span> <span class="n">cuda</span>
+</pre></div>
+</div>
+</section>
+<section id="add-the-following-to-bashrc">
+<h2>Add the following to <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code><a class="headerlink" href="#add-the-following-to-bashrc" title="Link to this heading">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">PATH</span><span class="o">=</span><span class="s2">&quot;/usr/local/cuda/bin:$PATH&quot;</span>
+<span class="n">export</span> <span class="n">LD_LIBRARY_PATH</span><span class="o">=</span><span class="s2">&quot;/usr/local/cuda/lib64:$LD_LIBRARY_PATH&quot;</span>
+<span class="n">export</span> <span class="n">PATH</span><span class="o">=</span><span class="s2">&quot;opt/nvidia/nsight-compute/:$PATH&quot;</span>
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This is an example of how to do a “note”. Good luck with the rest of the setup!</p>
@@ -291,6 +361,7 @@
 <p class="admonition-title">Caution</p>
 <p>And proceed with caution!</p>
 </div>
+</section>
 </section>
 
         </article>
@@ -336,8 +407,30 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Installation</a><ul>
+<li><a class="reference internal" href="#install-python-dependencies">Install Python Dependencies</a></li>
+<li><a class="reference internal" href="#install-cuda-dependencies">Install CUDA Dependencies</a></li>
+<li><a class="reference internal" href="#download-and-install-cuda">Download and Install CUDA</a></li>
+<li><a class="reference internal" href="#add-the-following-to-bashrc">Add the following to <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

@@ -229,9 +229,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../todo_list.html">Fall 2024 Tasks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gridcodegenerator.html">GRiDCodeGenerator index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rbdreference.html">RBDReference index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../urdfparser.html">URDFParser index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ and Bug Fixes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contribution_guidelines.html">Contributing to Project</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../sphinx_edit_guide.html">How to Edit and Deploy the Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sphinx_edit_guide.html">Editing Sphinx Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todo_list.html">Fall 2024 Tasks!</a></li>
 </ul>
 
 </div>
@@ -287,8 +291,8 @@ packages. Using its scripts, users can easily generate and test
 optimized rigid body dynamics CUDA C++ code for their URDF files.</p>
 <p>See here for usage information on each module:
 * <a class="reference internal" href="tutorials/urdf_parser.html"><span class="doc">URDFParser</span></a>
-* <span class="xref std std-doc">GRiDCodeGenerator</span>
-* <span class="xref std std-doc">RBDReference</span></p>
+* <a class="reference internal" href="tutorials/codegen.html"><span class="doc">GRiDCodeGenerator</span></a>
+* <a class="reference internal" href="tutorials/python_algorithms.html"><span class="doc">RBDReference</span></a></p>
 <p>For additional information and links to our paper on this work, check
 out our <a class="reference external" href="https://brianplancher.com/publication/GRiD">project
 website</a>.</p>
@@ -459,8 +463,20 @@ for other distros</p>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="getting_started/installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="getting_started/library_overview.html">Library Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started/installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#install-python-dependencies">Install Python Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#install-cuda-dependencies">Install CUDA Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#download-and-install-cuda">Download and Install CUDA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#add-the-following-to-bashrc">Add the following to <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started/library_overview.html">Library Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/library_overview.html#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/library_overview.html#i-rbdreference">I. RBDReference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/library_overview.html#ii-urdfparser">II. URDFParser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/library_overview.html#iii-gridcodegenerator">III. GRiDCodeGenerator</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started/docker_setup.html">Docker</a></li>
 </ul>
 </div>

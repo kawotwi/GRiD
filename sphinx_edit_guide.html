@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="Contributing to Project" href="contribution_guidelines.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Fall 2024 Tasks!" href="todo_list.html" /><link rel="prev" title="Contributing to Project" href="contribution_guidelines.html" />
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
-        <title>How to Edit and Deploy the Documentation - GRiD 1.0.0 documentation</title>
+        <title>Editing Sphinx Documentation - GRiD 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
@@ -229,9 +229,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="todo_list.html">Fall 2024 Tasks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gridcodegenerator.html">GRiDCodeGenerator index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rbdreference.html">RBDReference index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="urdfparser.html">URDFParser index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ and Bug Fixes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contribution_guidelines.html">Contributing to Project</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">How to Edit and Deploy the Documentation</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Editing Sphinx Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="todo_list.html">Fall 2024 Tasks!</a></li>
 </ul>
 
 </div>
@@ -272,9 +276,43 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="how-to-edit-and-deploy-the-documentation">
-<h1>How to Edit and Deploy the Documentation<a class="headerlink" href="#how-to-edit-and-deploy-the-documentation" title="Link to this heading">¶</a></h1>
+          <section id="editing-sphinx-documentation">
+<h1>Editing Sphinx Documentation<a class="headerlink" href="#editing-sphinx-documentation" title="Link to this heading">¶</a></h1>
 <p>Welcome to the guide on how to edit and deploy the Sphinx documentation for our project. This document will provide instructions on how to modify, build, and deploy the documentation locally and on the web.</p>
+<p>Follow the instructions below for tips on how to edit, build, deploy, and run the code locally. The docs folder currently has the following structure:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>docs
+├──<span class="w"> </span>source/
+│<span class="w">   </span>├──<span class="w"> </span>_static/
+│<span class="w">   </span>│<span class="w">   </span>├──custom.css
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>└──<span class="w"> </span>etc..
+│<span class="w">   </span>├──<span class="w"> </span>_templates/
+│<span class="w">   </span>├──<span class="w"> </span>user_guide/
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>concepts
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>algorithms
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>aba.rst
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>└──<span class="w"> </span>etc..
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>└──<span class="w"> </span>index.rst
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>getting_started
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>docker_setup.rst
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>installation.rst
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>library_overview.rst
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>└──<span class="w"> </span>etc..
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>tutorials
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>codegen.rst
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>python_algorithms.rst
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>urdf_parser.rst
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>└──<span class="w"> </span>etc..
+│<span class="w">   </span>├──<span class="w"> </span>conf.py
+│<span class="w">   </span>└──<span class="w"> </span>index.rst
+└──<span class="w"> </span>Makefile<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span>etc...
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When making changes to any of the above files, note the existence of a <code class="docutils literal notranslate"><span class="pre">toctree</span></code> at the bottom of some files.
+<code class="docutils literal notranslate"><span class="pre">index.rst</span></code> files typically point to other files. In order for your new file to be a part of documentation, ensure that it is included in the toctree in its folder or the previous folder.
+Also note that you can write files in the format of a README.md or .rst format. Both are quick to learn and use Latex.</p>
+</div>
 <section id="table-of-contents">
 <h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
@@ -284,16 +322,14 @@
 <li><p><cite>Editing Code and Running Locally</cite></p></li>
 <li><p><cite>Deploying the Code</cite></p></li>
 </ol>
-</section>
 <section id="editing-the-documentation">
-<h2>Editing the Documentation<a class="headerlink" href="#editing-the-documentation" title="Link to this heading">¶</a></h2>
+<h3>Editing the Documentation<a class="headerlink" href="#editing-the-documentation" title="Link to this heading">¶</a></h3>
 <p>To begin editing the documentation, follow these steps:</p>
-<ol class="arabic">
+<ol class="arabic simple">
 <li><p><strong>Clone the repository</strong>:
-If you haven’t already cloned the repository, use the following command to clone the project:</p>
-<p><a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>bash
-git clone <a class="reference external" href="https://github.com/A2R-Lab/GRiD.git">https://github.com/A2R-Lab/GRiD.git</a></p>
-</li>
+If you haven’t already cloned the repository, use the following command to clone the project:</p></li>
+</ol>
+<ol class="arabic simple" start="2">
 <li><dl class="simple">
 <dt><strong>Locate the Documentation Files</strong>:</dt><dd><p>The Sphinx documentation files are located in the docs/ directory (or a similar name depending on the project setup).
 Inside this directory, you will find index.rst (the main entry point) and other .rst files that contain the content.</p>
@@ -314,17 +350,29 @@ The primary file is index.rst, but other files are organized in subdirectories.<
 </ol>
 </section>
 <section id="building-documentaiton-locally">
-<h2>Building Documentaiton Locally<a class="headerlink" href="#building-documentaiton-locally" title="Link to this heading">¶</a></h2>
-<ol class="arabic">
-<li><dl>
+<h3>Building Documentaiton Locally<a class="headerlink" href="#building-documentaiton-locally" title="Link to this heading">¶</a></h3>
+<ol class="arabic simple">
+<li><dl class="simple">
 <dt><strong>Install Dependencies</strong>:</dt><dd><p>Before building the documentation, ensure you have the necessary dependencies installed.
 You can install the dependencies using the following command:</p>
-<p><a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a>bash
-python3 -m venv venvsource venv/bin/activate
-pip install -r requirements.txt</p>
 </dd>
 </dl>
 </li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>sphinx
+pip<span class="w"> </span>install<span class="w"> </span>furo<span class="w"> </span><span class="c1"># html theme</span>
+pip<span class="w"> </span>install<span class="w"> </span>sphinx-rtd-theme<span class="w"> </span><span class="c1">#read the docs theme</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If there are missing themes, easily pip install them as well as extensions.</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venvsource<span class="w"> </span>venv/bin/activate
+pip3<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
 <li><dl class="simple">
 <dt><strong>Build the Documentation</strong>:</dt><dd><p>sphinx-build -b html docs/source docs/build</p>
 </dd>
@@ -336,7 +384,17 @@ pip install -r requirements.txt</p>
 </dl>
 </li>
 </ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># without using npm</span>
+sphinx-build<span class="w"> </span>-b<span class="w"> </span>html<span class="w"> </span>.<span class="w"> </span>../build<span class="w"> </span><span class="c1"># this updates files and builds</span>
+python<span class="w"> </span>-m<span class="w"> </span>http.server<span class="w"> </span><span class="m">8000</span><span class="w"> </span><span class="c1">#</span>
+
+<span class="c1"># using npm</span>
+npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>http-server
+http-server<span class="w"> </span>./build<span class="w"> </span><span class="c1"># run to view server in docs directory</span>
+</pre></div>
+</div>
 <p>To be completed…</p>
+</section>
 </section>
 </section>
 
@@ -345,7 +403,15 @@ pip install -r requirements.txt</p>
       <footer>
         
         <div class="related-pages">
-          
+          <a class="next-page" href="todo_list.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Fall 2024 Tasks!</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
           <a class="prev-page" href="contribution_guidelines.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
@@ -387,10 +453,12 @@ pip install -r requirements.txt</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">How to Edit and Deploy the Documentation</a><ul>
-<li><a class="reference internal" href="#table-of-contents">Table of Contents</a></li>
+<li><a class="reference internal" href="#">Editing Sphinx Documentation</a><ul>
+<li><a class="reference internal" href="#table-of-contents">Table of Contents</a><ul>
 <li><a class="reference internal" href="#editing-the-documentation">Editing the Documentation</a></li>
 <li><a class="reference internal" href="#building-documentaiton-locally">Building Documentaiton Locally</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

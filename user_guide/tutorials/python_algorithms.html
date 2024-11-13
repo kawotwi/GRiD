@@ -229,9 +229,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../todo_list.html">Fall 2024 Tasks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gridcodegenerator.html">GRiDCodeGenerator index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rbdreference.html">RBDReference index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../urdfparser.html">URDFParser index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ and Bug Fixes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contribution_guidelines.html">Contributing to Project</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../sphinx_edit_guide.html">How to Edit and Deploy the Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sphinx_edit_guide.html">Editing Sphinx Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../todo_list.html">Fall 2024 Tasks!</a></li>
 </ul>
 
 </div>
@@ -312,16 +316,20 @@ replacing the desired urdf with the terminal scripts below.</p>
 This will output values for <code class="docutils literal notranslate"><span class="pre">RNEA</span></code>, <code class="docutils literal notranslate"><span class="pre">Minv</span></code>, <code class="docutils literal notranslate"><span class="pre">CRBA</span></code>, <code class="docutils literal notranslate"><span class="pre">RNEA_grad</span></code>,
 and more.</p>
 <p>Once can test algorithm outputs using Matlab Spatial V2 using the
-following sequence: 1. Run
-<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">compare_rnea_fb_spatial.py</span> <span class="pre">INSERT_URDF.urdf</span> <span class="pre">-f</span></code> which will
+following sequence:
+1. Run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">compare_rnea_fb_spatial.py</span> <span class="pre">INSERT_URDF.urdf</span> <span class="pre">-f</span></code> which will
 print the exact q, qd, qdd inputs for Spatial V2 floating base
 algorithms. (Matlab expects floating base joint to input quaternion xyzw
-and xyz location of Fb joint) 2. After generating compatible inputs with
+and xyz location of Fb joint)</p>
+<p>2. After generating compatible inputs with
 Matlab, create a floating base URDF.m file by running
-<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">generate_spatial_model.py</span> <span class="pre">INSERT_URDF.urdf</span> <span class="pre">-f</span></code>. 3. Place the
+<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">generate_spatial_model.py</span> <span class="pre">INSERT_URDF.urdf</span> <span class="pre">-f</span></code>.</p>
+<p>3. Place the
 newly generated <code class="docutils literal notranslate"><span class="pre">URDF.m</span></code> file in the working directory of
-spatial_v2_extended. 4. Run the script after ensuring spatial
-directories are sourced correctly. 5. Suggested testing includes
+spatial_v2_extended.</p>
+<p>4. Run the script after ensuring spatial
+directories are sourced correctly.</p>
+<p>5. Suggested testing includes
 <code class="docutils literal notranslate"><span class="pre">RNEA</span> <span class="pre">(ID)</span></code>, <code class="docutils literal notranslate"><span class="pre">HandC</span></code>, <code class="docutils literal notranslate"><span class="pre">Hinverse</span></code>, and more.</p>
 </section>
 <section id="instalation-instructions">
