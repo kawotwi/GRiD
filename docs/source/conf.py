@@ -76,17 +76,28 @@ latex_elements = {
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-# html_theme = 'pydata_sphinx_theme'
-html_theme = 'furo'
-# html_theme_options = {
-#     'navigation_depth': 4,
-#     'collapse_navigation': False,
-#     'sticky_navigation': True, 
-#     'style_nav_header_background': '#2980B9',
-#     'logo_only': False,
-#     "github_url": "https://github.com/kawotwi/GRiD", # Link to github
-#     "use_edit_page_button": True, # Enables edit button
-# }
+html_theme = 'pydata_sphinx_theme'
+html_favicon = '_static/favicon/favicon.ico'
+# html_theme = 'furo'
+html_theme_options = {
+    'navigation_depth': 4,
+    "github_url": "https://github.com/kawotwi/GRiD", # Link to github
+    "use_edit_page_button": True, # Enables edit button
+        "logo": {
+        "image_light": "_static/a2r_lab.jpg",
+        "image_dark": "_static/a2r_lab.jpg",
+    },
+    "collapse_navigation": True,
+    "header_links_before_dropdown": 6,
+    # Add light/dark mode and documentation version switcher:
+    "navbar_end": [
+        "search-button",
+        "theme-switcher",
+        "navbar-icon-links"
+    ],
+    "navbar_persistent": [],
+    "show_version_warning_banner": True,
+}
 html_static_path = ['_static']
 html_css_files = ['custom.css']
 html_logo = "_static/a2r_lab.jpg"
@@ -102,6 +113,7 @@ html_context = {
     "conf_py_path": "/source/",
     "doc_path": "docs/source"
 }
+
 
 
 intersphinx_mapping = {'gymnasium': ('https://gymnasium.farama.org/', None)}

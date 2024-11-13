@@ -14,15 +14,15 @@ and
 .. code:: shell
 
     # In the root of your desired project directory
-    git clone https://github.com/robot-acceleration/GRiD.git
+    git clone https://github.com/A2R-Lab/GRiD.git
     cd RBDReference
-    git clone https://github.com/robot-acceleration/RBDReference.git
+    git clone https://github.com/A2R-Lab/RBDReference.git
     cd ..
     cd URDFParser
-    git clone https://github.com/robot-acceleration/URDFParser.git
+    git clone https://github.com/A2R-Lab/URDFParser.git
     cd ..
     cd GRiDCodeGenerator
-    git clone https://github.com/robot-acceleration/GRiDCodeGenerator.git
+    git clone https://github.com/A2R-Lab/GRiDCodeGenerator.git
 
 .. note::
     
