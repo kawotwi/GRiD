@@ -100,7 +100,7 @@ html_theme_options = {
 }
 html_static_path = ['_static']
 html_css_files = ['custom.css']
-html_logo = "_static/a2r_lab.jpg"
+html_logo = "_static/favicon/favicon.ico"
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
