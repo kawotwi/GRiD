@@ -1,8 +1,6 @@
 {
   "projectName": "GRiD",
   "projectOwner": "kawotwi",
-  "files": [
-    "README.md"
-  ]
+  "files": ["README.md"],
   "branch": "floating-base"
 }
