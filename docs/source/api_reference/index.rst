@@ -3,7 +3,7 @@ API Reference
 This is for API reference!
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    rbd
 
@@ -13,6 +13,6 @@ This is for API reference!
    urdf
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    gridcodegen
