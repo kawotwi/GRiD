@@ -1,4 +1,8 @@
 {
-  "projectName": "<GRiD>",
-  "projectOwner": "<A2R-Lab>"
+  "projectName": "GRiD",
+  "projectOwner": "kawotwi",
+  "files": [
+    "README.md"
+  ]
+  "branch": "floating-base"
 }
