@@ -24,18 +24,15 @@ documentation for details. It is also possible to convert README.md files and sy
 
 
 .. toctree::
-   :maxdepth: 2
-   :caption: User Guide
+   :maxdepth: 3
+   :hidden:
 
    user_guide/landing_page
-   gridcodegenerator
-   rbdreference
-   urdfparser
-   faq
+   api_reference/index
    contribution_guidelines
    sphinx_edit_guide
+   faq
    todo_list
-
 
 Citation 
 --------
