@@ -10,12 +10,10 @@ from absl import logging
 
 CONTRIBUTORS_FILE = ".all-contributorsrc"
 
+# what is this for?
 EXCLUDED_USERS = {
     "web-flow",
     "github-actions[bot]",
-    "mrdragonbear",
-    "jveejay",
-    "Matthew Steward",
 }
 
 OWNER = "kawotwi"
@@ -85,7 +83,7 @@ def get_co_authors_from_commit_message(commit_message):
                     f"'Co-authored-by: NAME <email>'. "
                     f"Remember to include the angle brackets around the email."
                 )
-        return pd.DataFrame(co_author_data)
+        return pd.DataFrame(co_author_data,columns=["user_full_name", "email_address", "username"])
 
 
 def merge_user_full_names(row, col1, col2):
