@@ -3,6 +3,7 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![docs](https://github.com/kawotwi/GRiD/actions/workflows/gh-pages.yml/badge.svg?branch=floating-base)](https://github.com/kawotwi/GRiD/actions/workflows/gh-pages.yml)
+
 A GPU-accelerated library for computing rigid body dynamics with analytical gradients.
 
 GRiD wraps our [URDFParser](https://github.com/robot-acceleration/URDFParser), [GRiDCodeGenerator](https://github.com/robot-acceleration/GRiDCodeGenerator), and [RBDReference](https://github.com/robot-acceleration/RBDReference) packages. Using its scripts, users can easily generate and test optimized rigid body dynamics CUDA C++ code for their URDF files.
