@@ -1,8 +1,8 @@
 # GRiD
 
-[![Python Tests](https://github.com/kawotwi/GRiD/actions/workflows/python_tests.yml/badge.svg)](https://github.com/kawotwi/GRiD/actions/workflows/python_tests.yml)
-[![All Contributors](https://img.shields.io/github/all-contributors/kawotwi/GRiD?color=ee8449&style=flat-square)](#contributors)
-[![docs](https://github.com/kawotwi/GRiD/actions/workflows/gh-pages.yml/badge.svg?branch=floating-base)](https://github.com/kawotwi/GRiD/actions/workflows/gh-pages.yml)
+[![Python Tests](https://github.com/A2R-Lab/GRiD/actions/workflows/python_tests.yml/badge.svg)](https://github.com/A2R-Lab/GRiD/actions/workflows/python_tests.yml)
+[![All Contributors](https://img.shields.io/github/all-contributors/A2R-Lab/GRiD?color=ee8449&style=flat-square)](#contributors)
+[![docs](https://github.com/A2R-Lab/GRiD/actions/workflows/gh-pages.yml/badge.svg?branch=floating-base)](https://github.com/A2R-Lab/GRiD/actions/workflows/gh-pages.yml)
 
 A GPU-accelerated library for computing rigid body dynamics with analytical gradients.
 

@@ -2,6 +2,7 @@ name: Automatically Add Contributors
 on:
   push:
     branches:
+    - floating-base
     - main
 jobs:
   update-contributors:
