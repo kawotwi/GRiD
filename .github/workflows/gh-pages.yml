@@ -1,9 +1,10 @@
-name: docs
+name: Documentation 
 
 on:
   push:
     branches:
       - floating-base # Adjust this to the branch you want to trigger the workflow on
+      - main
     paths:
       - 'docs/**' # Only trigger workflow if files in the docs folder are modified
       - '.github/workflows/gh-pages.yml' # Trigger workflow if the workflow file is modified

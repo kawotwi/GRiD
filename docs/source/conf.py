@@ -81,7 +81,7 @@ html_favicon = '_static/favicon/favicon.ico'
 # html_theme = 'furo'
 html_theme_options = {
     'navigation_depth': 4,
-    "github_url": "https://github.com/kawotwi/GRiD", # Link to github
+    "github_url": "https://github.com/A2R-Lab/GRiD", # Link to github
     "use_edit_page_button": True, # Enables edit button
         "logo": {
         "image_light": "_static/a2r_lab.jpg",
@@ -107,7 +107,7 @@ html_logo = "_static/favicon/favicon.ico"
 
 html_context = {
     "display_github": True,
-    "github_user": "kawotwi",
+    "github_user": "A2R-Lab",
     "github_repo": "GRiD",
     "github_version": "main",
     "conf_py_path": "/source/",
@@ -115,5 +115,5 @@ html_context = {
 }
 
 
-
+# What is this for?
 intersphinx_mapping = {'gymnasium': ('https://gymnasium.farama.org/', None)}

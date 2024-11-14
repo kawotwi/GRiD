@@ -16,7 +16,7 @@ EXCLUDED_USERS = {
     "github-actions[bot]",
 }
 
-OWNER = "kawotwi"
+OWNER = "A2R-Lab"
 REPO = "GRiD"
 BRANCH = "floating-base"
 RESULTS_PER_PAGE = 1000
