@@ -1,18 +1,11 @@
 {
     "projectName": "GRiD",
-    "projectOwner": "kawotwi",
+    "projectOwner": "A2R-Lab",
     "files": [
         "contents/contributors.qmd",
         "README.md"
     ],
     "contributors": [
-        {
-            "login": "kawotwi",
-            "name": "Kwamena A",
-            "avatar_url": "https://avatars.githubusercontent.com/kawotwi",
-            "profile": "https://github.com/kawotwi",
-            "contributions": []
-        },
         {
             "login": "plancherb1",
             "name": "Brian Plancher",
