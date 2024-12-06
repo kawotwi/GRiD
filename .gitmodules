@@ -1,9 +1,9 @@
 [submodule "RBDReference"]
 	path = RBDReference
-	url = git@github.com:A2R-Lab/RBDReference.git
-[submodule "GRiDCodeGenerator"]
-	path = GRiDCodeGenerator
-	url = git@github.com:A2R-Lab/GRiDCodeGenerator.git
+	url = https://github.com/A2R-Lab/RBDReference.git
 [submodule "URDFParser"]
 	path = URDFParser
-	url = git@github.com:A2R-Lab/URDFParser.git
+	url = https://github.com/A2R-Lab/URDFParser.git
+[submodule "GRiDCodeGenerator"]
+	path = GRiDCodeGenerator
+	url = https://github.com/A2R-Lab/GRiDCodeGenerator.git
