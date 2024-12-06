@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-from URDFParser.URDFParser import URDFParser
-from RBDReference.RBDReference import RBDReference
+from URDFParser import URDFParser
+from RBDReference import RBDReference
 from GRiDCodeGenerator import GRiDCodeGenerator
 from util import parseInputs, printUsage, validateRobot, initializeValues, printErr
 import numpy as np
@@ -15,52 +15,31 @@ def main():
 
     reference = RBDReference(robot)
     q, qd, u, n = initializeValues(robot, MATCH_CPP_RANDOM = True)
+    
+    print("q\n",q)
+    print("qd\n",qd)
+    print("u\n",u)
 
-    u = 0*u
+    ee_pos = reference.end_effector_positions(q)
+    print("eepos\n",ee_pos)
 
-    print("q")
-    print(q)
-    print("qd")
-    print(qd)
-    print("u")
-    print(u)
+    dee_pos = reference.end_effector_position_gradients(q)
+    print("deepos\n",dee_pos)
 
-    NB = robot.get_num_bodies()
-    for curr_id in range(NB):
-        inds_q = robot.get_joint_index_q(curr_id)
-        _q = q[inds_q]
-        Xmat = robot.get_Xmat_Func_by_id(curr_id)(_q)
-        print("X[",curr_id,"]")
-        print(Xmat)
-
-    print("RNEA (Tau, Velocity, Acceleration, Force)")
     (c, v, a, f) = reference.rnea(q,qd)
-    print("v")
-    print(v)
-    print("a")
-    print(a)
-    print("f")
-    print(f)
-    print("c")
-    print(c)
+    print("c\n",c)
 
-    print("Minv")
     Minv = reference.minv(q)
-    print(Minv)
+    print("Minv\n", Minv)
 
-    print("CRBA")
-    M = reference.crba(q,qd)
-    print(M)
-    print('Minv - inv(M): Testing CRBA vs. Minv (should be zero)')
-    print(np.linalg.inv(M) - Minv)
-
-    print("qdd")
     qdd = np.matmul(Minv,(u-c))
-    print(qdd)
+    print("qdd\n",qdd)
 
-    print('aba')
-    aba_qdd = reference.aba(q,qd,c, f_ext = [])
-    print(aba_qdd)
+    crba=reference.crba(q,qd,u)
+    print("crba\n",crba)
+
+    qdd_aba = reference.aba(q,qd,u)
+    print("aba\n",qdd_aba)
 
     # NOTE qdd above does not match qdd below... why is that? Check same calculation in matlab of Minv @ (u-c)
     print("dc_dq") 
@@ -97,37 +76,27 @@ def main():
         print("-------------------")
         codegen = GRiDCodeGenerator(robot, DEBUG_MODE, FILE_NAMESPACE = FILE_NAMESPACE_NAME)
         (c, v, a, f) = codegen.test_rnea(q,qd)
-        print("v")
-        print(v)
-        print("a")
-        print(a)
-        print("f")
-        print(f)
-        print("c")
-        print(c)
+        print("v\n",v)
+        print("a\n",a)
+        print("f\n",f)
+        print("c\n",c)
         
         Minv = codegen.test_minv(q)
-        print("Minv")
-        print(Minv)
+        print("Minv\n",Minv)
 
-        print("u-c")
         umc = u-c
-        print(umc)
-        print("qdd")
+        print("u-c\n",umc)
+
         qdd = np.matmul(Minv,umc)
-        print(qdd)
+        print("qdd\n",qdd)
         
         dc_du = codegen.test_rnea_grad(q, qd, qdd)
-        print("dc/dq with qdd")
-        print(dc_du[:,:n])
-        print("dc/dqd with qdd")
-        print(dc_du[:,n:])
+        print("dc/dq with qdd\n",dc_du[:,:n])
+        print("dc/dqd with qdd\n",dc_du[:,n:])
         
         df_du = np.matmul(-Minv,dc_du)
-        print("df/dq")
-        print(df_du[:,:n])
-        print("df/dqd")
-        print(df_du[:,n:])
+        print("df/dq\n",df_du[:,:n])
+        print("df/dqd\n",df_du[:,n:])
 
 if __name__ == "__main__":
     main()
