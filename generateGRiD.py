@@ -78,7 +78,7 @@ def generate_matlab_model(robot, floating_base):
     f.close()
 
 def main():
-    URDF_PATH, DEBUG_MODE, FLOATING_BASE = parseInputs()
+    URDF_PATH, DEBUG_MODE, FLOATING_BASE, FILE_NAMESPACE_NAME = parseInputs()
 
     parser = URDFParser()
     robot = parser.parse(URDF_PATH, floating_base = FLOATING_BASE)
@@ -88,8 +88,8 @@ def main():
     # generate_matlab_model(robot, FLOATING_BASE)
     # print(f"m file genereated and saved to {robot.name}.m!")
 
-    codegen = GRiDCodeGenerator(robot,DEBUG_MODE,True)
-    codegen.gen_all_code(include_homogenous_transforms = True) # delete parameter if causing issues
+    codegen = GRiDCodeGenerator(robot,DEBUG_MODE,True, FILE_NAMESPACE = FILE_NAMESPACE_NAME)
+    codegen.gen_all_code(include_homogenous_transforms = True) # see commit history if there are issues with this or above line.
     print("New code generated and saved to grid.cuh!")
 
 if __name__ == "__main__":
