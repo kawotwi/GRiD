@@ -18,7 +18,7 @@ EXCLUDED_USERS = {
 
 OWNER = "A2R-Lab"
 REPO = "GRiD"
-BRANCH = "floating-base"
+BRANCH = "main"
 RESULTS_PER_PAGE = 1000
 
 
