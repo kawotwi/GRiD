@@ -8,17 +8,17 @@ import sys
 def main():
     inputs = parseInputs(NO_ARG_OPTION = True)
     if not inputs is None:
-        URDF_PATH, DEBUG_MODE, FLOATING_BASE = inputs
+        URDF_PATH, DEBUG_MODE, FLOATING_BASE, FILE_NAMESPACE_NAME = inputs
         parser = URDFParser()
         robot = parser.parse(URDF_PATH, floating_base = FLOATING_BASE)
 
         validateRobot(robot, NO_ARG_OPTION = True)
 
-        codegen = GRiDCodeGenerator(robot,DEBUG_MODE,True)
+        codegen = GRiDCodeGenerator(robot,DEBUG_MODE,True, FILE_NAMESPACE = FILE_NAMESPACE_NAME)
         print("-----------------")
         print("Generating GRiD.cuh")
         print("-----------------")
-        codegen.gen_all_code()
+        codegen.gen_all_code(include_homogenous_transforms = True)
         print("New code generated and saved to grid.cuh!")
 
     print("-----------------")
