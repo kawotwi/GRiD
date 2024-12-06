@@ -1,8 +1,8 @@
 #!/usr/bin/python3
-from .URDFParser import URDFParser
-from .RBDReference import RBDReference
-from .GRiDCodeGenerator import GRiDCodeGenerator
-from .util import parseInputs, printUsage, validateRobot, initializeValues, printErr
+from URDFParser import URDFParser
+from RBDReference import RBDReference
+from GRiDCodeGenerator import GRiDCodeGenerator
+from util import parseInputs, printUsage, validateRobot, initializeValues, printErr
 import copy
 
 def main():
