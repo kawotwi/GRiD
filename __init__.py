@@ -1,1 +1,1 @@
-__all__ = ["GRiDCodeGenerator", "RBDReference", "URDFParser", "util", "generateGRiD", "printGRiD", "printReferenceValues", "testGRiDRefactorings"]
+__all__ = ["GRiDCodeGenerator", "RBDReference", "URDFParser", "util", "generateGRiD", "printGRiD", "printReferenceValues", "test"]
