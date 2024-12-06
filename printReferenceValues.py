@@ -6,7 +6,7 @@ from util import parseInputs, printUsage, validateRobot, initializeValues, print
 import numpy as np
 
 def main():
-    URDF_PATH, DEBUG_MODE, FLOATING_BASE = parseInputs()
+    URDF_PATH, DEBUG_MODE, FLOATING_BASE, FILE_NAMESPACE_NAME = parseInputs()
 
     parser = URDFParser()
     robot = parser.parse(URDF_PATH, floating_base = FLOATING_BASE)
@@ -66,7 +66,6 @@ def main():
     print("dc_dq") 
     # qdd = np.array([0.741788, 1.92844, -0.903882, 0.0333959, 1.17986, -1.94599, 0.32869, -0.139457, 2.00667, -0.519292, -0.711198, 0.376638, -0.209225])
     qdd = u
-    # dc_dq,dc_dqd = reference.rnea_derivatives(q,qd,qdd)
     dc_dq, dc_dqd = reference.rnea_grad(q, qd, qdd)
     print(dc_dq)
     print("dc_dqd")
@@ -96,7 +95,7 @@ def main():
         print("-------------------")
         print("printing intermediate outputs from refactorings")
         print("-------------------")
-        codegen = GRiDCodeGenerator(robot, DEBUG_MODE)
+        codegen = GRiDCodeGenerator(robot, DEBUG_MODE, FILE_NAMESPACE = FILE_NAMESPACE_NAME)
         (c, v, a, f) = codegen.test_rnea(q,qd)
         print("v")
         print(v)
