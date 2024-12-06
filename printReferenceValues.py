@@ -6,16 +6,16 @@ from util import parseInputs, printUsage, validateRobot, initializeValues, print
 import numpy as np
 
 def main():
-    URDF_PATH, DEBUG_MODE, FILE_NAMESPACE_NAME = parseInputs()
+    URDF_PATH, DEBUG_MODE, FLOATING_BASE, FILE_NAMESPACE_NAME = parseInputs()
 
     parser = URDFParser()
-    robot = parser.parse(URDF_PATH)
+    robot = parser.parse(URDF_PATH, floating_base = FLOATING_BASE)
 
     validateRobot(robot)
 
     reference = RBDReference(robot)
     q, qd, u, n = initializeValues(robot, MATCH_CPP_RANDOM = True)
-
+    
     print("q\n",q)
     print("qd\n",qd)
     print("u\n",u)
@@ -40,14 +40,35 @@ def main():
 
     qdd_aba = reference.aba(q,qd,u)
     print("aba\n",qdd_aba)
-    
-    dc_du = reference.rnea_grad(q, qd, qdd)
-    print("dc/dq with qdd\n",dc_du[:,:n])
-    print("dc/dqd with qdd\n",dc_du[:,n:])
 
-    df_du = np.matmul(-Minv,dc_du)
-    print("df/dq\n",df_du[:,:n])
-    print("df/dqd\n",df_du[:,n:])
+    # NOTE qdd above does not match qdd below... why is that? Check same calculation in matlab of Minv @ (u-c)
+    print("dc_dq") 
+    # qdd = np.array([0.741788, 1.92844, -0.903882, 0.0333959, 1.17986, -1.94599, 0.32869, -0.139457, 2.00667, -0.519292, -0.711198, 0.376638, -0.209225])
+    qdd = u
+    dc_dq, dc_dqd = reference.rnea_grad(q, qd, qdd)
+    print(dc_dq)
+    print("dc_dqd")
+    print(dc_dqd)
+
+    dqdd_dq, dqdd_dqd, dqdd_dc = reference.forward_dynamics_grad(q,qd,c)
+    print("dqdd_dq")
+    print(dqdd_dq)
+    print("dqdd_dqd")
+    print(dqdd_dqd)
+    print("dqdd_dc")
+    print(dqdd_dc)
+
+    # forward dynamics
+    df_dq = np.matmul(-Minv,dc_dq)
+    df_dqd = np.matmul(-Minv,dc_dqd)
+    print(f"df/dq {df_dq.shape}")
+    print(df_dq)
+    print("df/dqd")
+    print(df_dqd)
+
+    external_forces = np.zeros((6,NB))
+    qdd = reference.aba(q,qd,c, f_ext = [])
+
 
     if DEBUG_MODE:
         print("-------------------")
