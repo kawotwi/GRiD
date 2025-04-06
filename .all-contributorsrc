@@ -1,78 +1,26 @@
 {
-    "projectName": "GRiD",
-    "projectOwner": "A2R-Lab",
-    "files": [
-        "contents/contributors.qmd",
-        "README.md"
-    ],
-    "contributors": [
-        {
-            "login": "plancherb1",
-            "name": "Brian Plancher",
-            "avatar_url": "https://avatars.githubusercontent.com/plancherb1",
-            "profile": "https://github.com/plancherb1",
-            "contributions": []
-        },
-        {
-            "login": "kawotwi",
-            "name": "Kwamena A",
-            "avatar_url": "https://avatars.githubusercontent.com/kawotwi",
-            "profile": "https://github.com/kawotwi",
-            "contributions": []
-        },
-        {
-            "login": "Danelle Tuchman",
-            "name": "Danelle Tuchman",
-            "avatar_url": "https://www.gravatar.com/avatar/b619b0ff13333ce2a22bb110eda8f7a9?d=identicon&s=100",
-            "profile": "https://github.com/harvard-edge/cs249r_book/graphs/contributors",
-            "contributions": []
-        },
-        {
-            "login": "EmreAdabag",
-            "name": "EmreAdabag",
-            "avatar_url": "https://avatars.githubusercontent.com/EmreAdabag",
-            "profile": "https://github.com/EmreAdabag",
-            "contributions": []
-        },
-        {
-            "login": "naren-loganathan",
-            "name": "Naren Loganathan",
-            "avatar_url": "https://avatars.githubusercontent.com/naren-loganathan",
-            "profile": "https://github.com/naren-loganathan",
-            "contributions": []
-        },
-        {
-            "login": "Z4KH",
-            "name": "Z4KH",
-            "avatar_url": "https://avatars.githubusercontent.com/Z4KH",
-            "profile": "https://github.com/Z4KH",
-            "contributions": []
-        },
-        {
-            "login": "emilyburnett2003",
-            "name": "emilyburnett2003",
-            "avatar_url": "https://avatars.githubusercontent.com/emilyburnett2003",
-            "profile": "https://github.com/emilyburnett2003",
-            "contributions": []
-        },
-        {
-            "login": "Kimiya Shahamat",
-            "name": "Kimiya Shahamat",
-            "avatar_url": "https://www.gravatar.com/avatar/b6a2a74133224e85e9714e282a1576df?d=identicon&s=100",
-            "profile": "https://github.com/harvard-edge/cs249r_book/graphs/contributors",
-            "contributions": []
-        },
-        {
-            "login": "Kimiya Shahamat",
-            "name": "Kimiya Shahamat",
-            "avatar_url": "https://www.gravatar.com/avatar/b6a2a74133224e85e9714e282a1576df?d=identicon&s=100",
-            "profile": "https://github.com/harvard-edge/cs249r_book/graphs/contributors",
-            "contributions": []
-        }
-    ],
-    "repoType": "github",
-    "contributorsPerLine": 5,
-    "repoHost": "https://github.com",
-    "commitConvention": "angular",
-    "skipCi": true
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "kawotwi",
+      "name": "Kwamena A",
+      "avatar_url": "https://avatars.githubusercontent.com/u/155214889?v=4",
+      "profile": "https://github.com/kawotwi",
+      "contributions": [
+        "design"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "GRiD",
+  "projectOwner": "kawotwi"
 }

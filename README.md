@@ -1,6 +1,8 @@
 # GRiD
-[![All Contributors](https://img.shields.io/github/all-contributors/A2R-Lab/GRiD?color=ee8449&style=flat-square)](#contributors)
-[![docs](https://github.com/A2R-Lab/GRiD/actions/workflows/gh-pages.yml/badge.svg?branch=main)](https://github.com/A2R-Lab/GRiD/actions/workflows/gh-pages.yml)
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+[![docs](https://github.com/kawotwi/GRiD/actions/workflows/gh-pages.yml/badge.svg?branch=floating-base)](https://github.com/kawotwi/GRiD/actions/workflows/gh-pages.yml)
 
 A GPU-accelerated library for computing rigid body dynamics with analytical gradients.
 
@@ -85,8 +87,9 @@ export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"
 export PATH="opt/nvidia/nsight-compute/:$PATH"
 ```
 
+## Contributors ✨
 
-## Contributors
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -94,17 +97,7 @@ export PATH="opt/nvidia/nsight-compute/:$PATH"
 <table>
   <tbody>
     <tr>
-      <td align="center" valign="top" width="20%"><a href="https://github.com/plancherb1"><img src="https://avatars.githubusercontent.com/plancherb1?s=100" width="100px;" alt="Brian Plancher"/><br /><sub><b>Brian Plancher</b></sub></a><br /></td>
-      <td align="center" valign="top" width="20%"><a href="https://github.com/kawotwi"><img src="https://avatars.githubusercontent.com/kawotwi?s=100" width="100px;" alt="Kwamena A"/><br /><sub><b>Kwamena A</b></sub></a><br /></td>
-      <td align="center" valign="top" width="20%"><a href="https://github.com/harvard-edge/cs249r_book/graphs/contributors"><img src="https://www.gravatar.com/avatar/b619b0ff13333ce2a22bb110eda8f7a9?d=identicon&s=100?s=100" width="100px;" alt="Danelle Tuchman"/><br /><sub><b>Danelle Tuchman</b></sub></a><br /></td>
-      <td align="center" valign="top" width="20%"><a href="https://github.com/EmreAdabag"><img src="https://avatars.githubusercontent.com/EmreAdabag?s=100" width="100px;" alt="EmreAdabag"/><br /><sub><b>EmreAdabag</b></sub></a><br /></td>
-      <td align="center" valign="top" width="20%"><a href="https://github.com/naren-loganathan"><img src="https://avatars.githubusercontent.com/naren-loganathan?s=100" width="100px;" alt="Naren Loganathan"/><br /><sub><b>Naren Loganathan</b></sub></a><br /></td>
-    </tr>
-    <tr>
-      <td align="center" valign="top" width="20%"><a href="https://github.com/Z4KH"><img src="https://avatars.githubusercontent.com/Z4KH?s=100" width="100px;" alt="Z4KH"/><br /><sub><b>Z4KH</b></sub></a><br /></td>
-      <td align="center" valign="top" width="20%"><a href="https://github.com/emilyburnett2003"><img src="https://avatars.githubusercontent.com/emilyburnett2003?s=100" width="100px;" alt="emilyburnett2003"/><br /><sub><b>emilyburnett2003</b></sub></a><br /></td>
-      <td align="center" valign="top" width="20%"><a href="https://github.com/harvard-edge/cs249r_book/graphs/contributors"><img src="https://www.gravatar.com/avatar/b6a2a74133224e85e9714e282a1576df?d=identicon&s=100?s=100" width="100px;" alt="Kimiya Shahamat"/><br /><sub><b>Kimiya Shahamat</b></sub></a><br /></td>
-      <td align="center" valign="top" width="20%"><a href="https://github.com/harvard-edge/cs249r_book/graphs/contributors"><img src="https://www.gravatar.com/avatar/b6a2a74133224e85e9714e282a1576df?d=identicon&s=100?s=100" width="100px;" alt="Kimiya Shahamat"/><br /><sub><b>Kimiya Shahamat</b></sub></a><br /></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/kawotwi"><img src="https://avatars.githubusercontent.com/u/155214889?v=4?s=100" width="100px;" alt="Kwamena A"/><br /><sub><b>Kwamena A</b></sub></a><br /><a href="#design-kawotwi" title="Design">🎨</a></td>
     </tr>
   </tbody>
 </table>
@@ -113,3 +106,5 @@ export PATH="opt/nvidia/nsight-compute/:$PATH"
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
