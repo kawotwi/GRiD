@@ -91,8 +91,8 @@ class CMakeBuild(build_ext):
 setup(
     name='gridCuda',
     version='0.1.0',
-    author='Your Name',
-    author_email='your.email@example.com',
+    author='Kwamena Awotwi',
+    author_email='koawotwi@gmail.com',
     description='Python bindings for CUDA grid dynamics',
     long_description=open('README.md').read() if os.path.exists('README.md') else '',
     long_description_content_type='text/markdown',
