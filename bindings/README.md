@@ -26,11 +26,7 @@ cmake ..
 make
 cd ..
 
-Usage
-
-Here's a basic example showing how to use the PyGrid library:
-
-python
+Usage (python)n
 
 import numpy as np
 import gridCuda
@@ -56,14 +52,6 @@ Classes
     GridDataFloat: Single-precision (float) implementation.
     Note that the double implementation caused errors. 
 
-Methods
-
-    load_joint_info(q, qd, u): Set joint positions, velocities, and control inputs
-    inverse_dynamics(): Calculate inverse dynamics
-
-Constants
-
-    NUM_JOINTS: Number of joints in the robot model
 
 
 
