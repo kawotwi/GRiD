@@ -9,6 +9,10 @@ Requirements
     Python >= 3.6
     pybind11
 
+If no ''grid.cuh'' file included, run the following which will generate a grid.cuh file and move it into the include file:
+
+python3 init_include.py urdfs/URDF_FILENAME 
+
 Installation
 Option 1: Install using pip
 
