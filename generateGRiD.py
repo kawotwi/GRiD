@@ -88,7 +88,7 @@ def main():
     # generate_matlab_model(robot, FLOATING_BASE)
     # print(f"m file genereated and saved to {robot.name}.m!")
 
-    codegen = GRiDCodeGenerator(robot,DEBUG_MODE,True, FILE_NAMESPACE = FILE_NAMESPACE_NAME)
+    codegen = GRiDCodeGenerator(robot, DEBUG_MODE, True, FILE_NAMESPACE = FILE_NAMESPACE_NAME)
     codegen.gen_all_code(include_homogenous_transforms = True) # see commit history if there are issues with this or above line.
     print("New code generated and saved to grid.cuh!")
 

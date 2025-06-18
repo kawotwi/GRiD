@@ -20,10 +20,10 @@ def main():
     print("qd\n",qd)
     print("u\n",u)
 
-    ee_pos = reference.end_effector_positions(q)
+    ee_pos = reference.end_effector_pose(q)
     print("eepos\n",ee_pos)
 
-    dee_pos = reference.end_effector_position_gradients(q)
+    dee_pos = reference.end_effector_pose_gradients(q)
     print("deepos\n",dee_pos)
 
     (c, v, a, f) = reference.rnea(q,qd)
