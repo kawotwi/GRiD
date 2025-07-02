@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-from .URDFParser import URDFParser
-from .GRiDCodeGenerator import GRiDCodeGenerator
-from .util import parseInputs, printUsage, validateRobot, initializeValues
+from URDFParser import URDFParser
+from GRiDCodeGenerator import GRiDCodeGenerator
+from util import parseInputs, printUsage, validateRobot, initializeValues
 import subprocess
 import sys
 

@@ -23,8 +23,11 @@ def main():
     ee_pos = reference.end_effector_pose(q)
     print("eepos\n",ee_pos)
 
-    dee_pos = reference.end_effector_pose_gradients(q)
+    dee_pos = reference.end_effector_pose_gradient(q)
     print("deepos\n",dee_pos)
+
+    d2ee_pos = reference.end_effector_pose_hessian(q)
+    print("d2eepos\n",d2ee_pos)
 
     (c, v, a, f) = reference.rnea(q,qd)
     print("c\n",c)
@@ -35,7 +38,7 @@ def main():
     qdd = np.matmul(Minv,(u-c))
     print("qdd\n",qdd)
 
-    crba=reference.crba(q,qd,u)
+    crba=reference.crba(q)
     print("crba\n",crba)
 
     qdd_aba = reference.aba(q,qd,u)
@@ -50,13 +53,11 @@ def main():
     print("dc_dqd")
     print(dc_dqd)
 
-    dqdd_dq, dqdd_dqd, dqdd_dc = reference.forward_dynamics_grad(q,qd,c)
+    dqdd_dq, dqdd_dqd = reference.forward_dynamics_grad(q,qd,c)
     print("dqdd_dq")
     print(dqdd_dq)
     print("dqdd_dqd")
     print(dqdd_dqd)
-    print("dqdd_dc")
-    print(dqdd_dc)
 
     # forward dynamics
     df_dq = np.matmul(-Minv,dc_dq)
@@ -65,10 +66,6 @@ def main():
     print(df_dq)
     print("df/dqd")
     print(df_dqd)
-
-    external_forces = np.zeros((6,NB))
-    qdd = reference.aba(q,qd,c, f_ext = [])
-
 
     if DEBUG_MODE:
         print("-------------------")

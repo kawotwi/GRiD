@@ -43,6 +43,10 @@ void test(){
 	grid::end_effector_positions_gradient<T,false>(hd_data,d_robotModel,1,dim3(1,1,1),dimms,streams);
 	printMat<T,6,grid::NUM_EES*grid::NUM_JOINTS>(hd_data->h_deePos,6);
 
+	printf("d2eePos\n");
+	grid::end_effector_positions_gradient<T,false>(hd_data,d_robotModel,1,dim3(1,1,1),dimms,streams);
+	printMat<T,6,grid::NUM_EES*grid::NUM_JOINTS*grid::NUM_JOINTS>(hd_data->h_d2eePos,6);
+
 	printf("c\n");
 	grid::inverse_dynamics<T,false,false>(hd_data,d_robotModel,gravity,1,dim3(1,1,1),dimms,streams);
 	printMat<T,1,grid::NUM_JOINTS>(hd_data->h_c,1);
