@@ -35,29 +35,25 @@ void test(){
 	printMat<T,1,grid::NUM_JOINTS>(&hd_data->h_q_qd_u[grid::NUM_JOINTS],1);
 	printMat<T,1,grid::NUM_JOINTS>(&hd_data->h_q_qd_u[2*grid::NUM_JOINTS],1);
 
-	printf("eePos\n");
-	grid::end_effector_positions<T,false>(hd_data,d_robotModel,1,dim3(1,1,1),dimms,streams);
-	printMat<T,1,6*grid::NUM_EES>(hd_data->h_eePos,1);
-
-	printf("deePos\n");
-	grid::end_effector_positions_gradient<T,false>(hd_data,d_robotModel,1,dim3(1,1,1),dimms,streams);
-	printMat<T,6,grid::NUM_EES*grid::NUM_JOINTS>(hd_data->h_deePos,6);
-
-	printf("d2eePos\n");
-	grid::end_effector_positions_gradient<T,false>(hd_data,d_robotModel,1,dim3(1,1,1),dimms,streams);
-	printMat<T,6,grid::NUM_EES*grid::NUM_JOINTS*grid::NUM_JOINTS>(hd_data->h_d2eePos,6);
-
-	printf("c\n");
+	printf("c via inverse dynamics\n");
 	grid::inverse_dynamics<T,false,false>(hd_data,d_robotModel,gravity,1,dim3(1,1,1),dimms,streams);
 	printMat<T,1,grid::NUM_JOINTS>(hd_data->h_c,1);
 
-	printf("Minv\n");
+	printf("Minv via direct minv\n");
 	grid::direct_minv<T,false>(hd_data,d_robotModel,1,dim3(1,1,1),dimms,streams);
 	printMat<T,grid::NUM_JOINTS,grid::NUM_JOINTS>(hd_data->h_Minv,grid::NUM_JOINTS);
 
-	printf("qdd\n");
+	printf("qdd via forward dynamics\n");
 	grid::forward_dynamics<T>(hd_data,d_robotModel,gravity,1,dim3(1,1,1),dimms,streams);
 	printMat<T,1,grid::NUM_JOINTS>(hd_data->h_qdd,1);
+
+	printf("qdd via aba\n");
+	grid::aba<T>(hd_data,d_robotModel,gravity,1,dim3(1,1,1),dimms,streams);
+	printMat<T,1,grid::NUM_JOINTS>(hd_data->h_qdd,1);
+
+	printf("M via crba\n");
+	grid::crba<T>(hd_data,d_robotModel,gravity,1,dim3(1,1,1),dimms,streams);
+	printMat<T,grid::NUM_JOINTS,grid::NUM_JOINTS>(hd_data->h_M,grid::NUM_JOINTS);
 
 	grid::inverse_dynamics_gradient<T,true,false>(hd_data,d_robotModel,gravity,1,dim3(1,1,1),dimms,streams);
 	printf("dc_dq\n");
@@ -70,6 +66,19 @@ void test(){
 	printMat<T,grid::NUM_JOINTS,grid::NUM_JOINTS>(hd_data->h_df_du,grid::NUM_JOINTS);
 	printf("df_dqd\n");
 	printMat<T,grid::NUM_JOINTS,grid::NUM_JOINTS>(&hd_data->h_df_du[grid::NUM_JOINTS*grid::NUM_JOINTS],grid::NUM_JOINTS);
+
+	printf("eePos\n");
+	grid::end_effector_pose<T,false>(hd_data,d_robotModel,1,dim3(1,1,1),dimms,streams);
+	printMat<T,1,6*grid::NUM_EES>(hd_data->h_eePos,1);
+
+	printf("deePos\n");
+	grid::end_effector_pose_gradient<T,false>(hd_data,d_robotModel,1,dim3(1,1,1),dimms,streams);
+	printMat<T,6,grid::NUM_EES*grid::NUM_JOINTS>(hd_data->h_deePos,6);
+
+	printf("d2eePos\n");
+	grid::end_effector_pose_gradient_hessian<T,false>(hd_data,d_robotModel,1,dim3(1,1,1),dimms,streams);
+	printMat<T,6,grid::NUM_EES*grid::NUM_JOINTS*grid::NUM_JOINTS>(hd_data->h_d2eePos,6);
+
 
 	grid::close_grid<T>(streams,d_robotModel,hd_data);
 }
