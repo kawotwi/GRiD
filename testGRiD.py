@@ -75,7 +75,7 @@ def testGRiD(URDF_PATH, FLOATING_BASE):
 
     # inverse dynamics gradient
     dcdu_ref = r.rnea_grad(q,qd,np.zeros(nv))
-    dcdq_ref, dcdqd_ref = np.hsplit(dcdu_ref, [len(q)])
+    dcdq_ref, dcdqd_ref = np.hsplit(dcdu_ref, [nv])
     dcdq_grid = grid_output[:nv]
     dcdqd_grid = grid_output[nv:2*nv]
     grid_output = grid_output[2*nv:]
