@@ -7,17 +7,17 @@
     ],
     "contributors": [
         {
-            "login": "plancherb1",
-            "name": "Brian Plancher",
-            "avatar_url": "https://avatars.githubusercontent.com/plancherb1",
-            "profile": "https://github.com/plancherb1",
-            "contributions": []
-        },
-        {
             "login": "kawotwi",
             "name": "Kwamena A",
             "avatar_url": "https://avatars.githubusercontent.com/kawotwi",
             "profile": "https://github.com/kawotwi",
+            "contributions": []
+        },
+        {
+            "login": "plancherb1",
+            "name": "Brian Plancher",
+            "avatar_url": "https://avatars.githubusercontent.com/plancherb1",
+            "profile": "https://github.com/plancherb1",
             "contributions": []
         },
         {
