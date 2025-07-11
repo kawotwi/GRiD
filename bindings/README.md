@@ -1,4 +1,4 @@
-PyGrid: Python Bindings for CUDA Grid Dynamics
+PyGrid: Python Bindings for CUDA Grid Dynamics * please change name
 
 This package provides Python bindings for the CUDA-based Grid Dynamics library using pybind11.
 Requirements
