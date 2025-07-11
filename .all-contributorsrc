@@ -7,13 +7,6 @@
     ],
     "contributors": [
         {
-            "login": "plancherb1",
-            "name": "Brian Plancher",
-            "avatar_url": "https://avatars.githubusercontent.com/plancherb1",
-            "profile": "https://github.com/plancherb1",
-            "contributions": []
-        },
-        {
             "login": "kawotwi",
             "name": "Kwamena A",
             "avatar_url": "https://avatars.githubusercontent.com/kawotwi",
@@ -21,10 +14,24 @@
             "contributions": []
         },
         {
+            "login": "plancherb1",
+            "name": "Brian Plancher",
+            "avatar_url": "https://avatars.githubusercontent.com/plancherb1",
+            "profile": "https://github.com/plancherb1",
+            "contributions": []
+        },
+        {
             "login": "Danelle Tuchman",
             "name": "Danelle Tuchman",
             "avatar_url": "https://www.gravatar.com/avatar/b619b0ff13333ce2a22bb110eda8f7a9?d=identicon&s=100",
             "profile": "https://github.com/harvard-edge/cs249r_book/graphs/contributors",
+            "contributions": []
+        },
+        {
+            "login": "Z4KH",
+            "name": "Zachary Pestrikov",
+            "avatar_url": "https://avatars.githubusercontent.com/Z4KH",
+            "profile": "https://github.com/Z4KH",
             "contributions": []
         },
         {
@@ -39,13 +46,6 @@
             "name": "Naren Loganathan",
             "avatar_url": "https://avatars.githubusercontent.com/naren-loganathan",
             "profile": "https://github.com/naren-loganathan",
-            "contributions": []
-        },
-        {
-            "login": "Z4KH",
-            "name": "Zachary Pestrikov",
-            "avatar_url": "https://avatars.githubusercontent.com/Z4KH",
-            "profile": "https://github.com/Z4KH",
             "contributions": []
         },
         {
