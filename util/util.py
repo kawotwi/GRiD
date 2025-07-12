@@ -53,7 +53,7 @@ def parseInputs(NO_ARG_OPTION = False):
     print("                    URDF = " + URDF_PATH)
     print("                    NAME = " + FILE_NAMESPACE_NAME)
 
-    return (URDF_PATH, DEBUG_MODE, FLOATING_BASE, FILE_NAMESPACE_NAME)
+    return (URDF_PATH, DEBUG_MODE, FILE_NAMESPACE_NAME, FLOATING_BASE)
 
 def validateRobot(robot, NO_ARG_OPTION = False):
     if robot == None:
