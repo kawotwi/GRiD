@@ -16,7 +16,7 @@ def main():
     reference = RBDReference(robot)
     q, qd, u, n = initializeValues(robot, MATCH_CPP_RANDOM = True)
 
-    for (idx, _) in enumerate(u): u[idx] = 0
+    #for (idx, _) in enumerate(u): u[idx] = 0
 
     print("q\n",q)
     print("qd\n",qd)
@@ -32,20 +32,11 @@ def main():
     print("qdd\n",qdd)
 
     if not FLOATING_BASE:
-        ee_pos = reference.end_effector_pose(q)
-        print("eepos\n",ee_pos)
-
-        dee_pos = reference.end_effector_pose_gradient(q)
-        print("deepos\n",dee_pos)
-
-        d2ee_pos = reference.end_effector_pose_hessian(q)
-        print("d2eepos\n",d2ee_pos)
+        qdd_aba = reference.aba(q,qd,u)
+        print("aba\n",qdd_aba)
 
         crba=reference.crba(q)
         print("crba\n",crba)
-
-        qdd_aba = reference.aba(q,qd,u)
-        print("aba\n",qdd_aba)
 
     dc_du = reference.rnea_grad(q, qd, qdd)
     print("dc/dq with qdd\n",dc_du)
@@ -60,6 +51,16 @@ def main():
     print(dqdd_dq)
     print("dqdd_dqd")
     print(dqdd_dqd)
+
+    if not FLOATING_BASE:
+        ee_pos = reference.end_effector_pose(q)
+        print("eepos\n",ee_pos)
+
+        dee_pos = reference.end_effector_pose_gradient(q)
+        print("deepos\n",dee_pos)
+
+        d2ee_pos = reference.end_effector_pose_hessian(q)
+        print("d2eepos\n", d2ee_pos)
 
     if not FLOATING_BASE:
         d2tau_dq, d2tau_dqd, d2tau_cross, dM_dq = reference.second_order_idsva_parallel(q,qd,np.zeros(len(qd)))
