@@ -81,6 +81,8 @@ void test(){
     printf("d2eePos\n");
     grid::end_effector_pose_gradient_hessian<T,false>(hd_data,d_robotModel,1,dim3(1,1,1),dimms,streams);
     for(int ee=0; ee < grid::NUM_EES; ee++){
+        printf("deePos[%d]\n",ee);
+        printMat<T,6,grid::NUM_JOINTS>(&hd_data->h_deePos[ee*6*grid::NUM_JOINTS],6);
         printf("d2eePos[%d]\n",ee);
         for (int i=0; i < 6; i++){
             int offset = ee*6*grid::NUM_JOINTS*grid::NUM_JOINTS + i*grid::NUM_JOINTS*grid::NUM_JOINTS;
