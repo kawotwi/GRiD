@@ -1,13 +1,30 @@
-// grid_torch_ops.cpp
+// grid_torch_ops.cu - CUDA implementation of PyTorch bindings for GRiD
 #include <torch/extension.h>
 #include <cuda_runtime.h>
+#include <cuda.h>
 #include "grid.cuh"
 #include <vector>
+#include <memory>
+
+// Helper macros for CUDA error checking
+#define CUDA_CHECK(call) \
+    do { \
+        cudaError_t error = call; \
+        if (error != cudaSuccess) { \
+            AT_ERROR("CUDA error at ", __FILE__, ":", __LINE__, \
+                     " code=", error, "(", cudaGetErrorString(error), ")"); \
+        } \
+    } while(0)
 
 // Helper to check CUDA tensors
 #define CHECK_CUDA(x) TORCH_CHECK(x.device().is_cuda(), #x " must be a CUDA tensor")
 #define CHECK_CONTIGUOUS(x) TORCH_CHECK(x.is_contiguous(), #x " must be contiguous")
 #define CHECK_INPUT(x) CHECK_CUDA(x); CHECK_CONTIGUOUS(x)
+
+// Ensure we're using the correct CUDA context
+inline void ensureCudaContext() {
+    cudaFree(0);
+}
 
 template <typename scalar_t>
 class TorchGRiD {
@@ -17,17 +34,28 @@ private:
     grid::gridData<scalar_t>* grid_data;
     cudaStream_t* streams;
     grid::robotModel<scalar_t>* d_robot_model;
+    cudaStream_t compute_stream;
 
 public:
-    TorchGRiD(scalar_t g = static_cast<scalar_t>(9.81)) {
-        gravity = g;
+    TorchGRiD(scalar_t g = static_cast<scalar_t>(9.81)) : gravity(g) {
+        ensureCudaContext();
+        
+        // Initialize dimensions
         dimms = dim3(grid::SUGGESTED_THREADS, 1, 1);
+        
+        // Create a dedicated stream for this instance
+        CUDA_CHECK(cudaStreamCreate(&compute_stream));
+        
+        // Initialize GRiD components
         streams = grid::init_grid<scalar_t>();
         d_robot_model = grid::init_robotModel<scalar_t>();
         grid_data = grid::init_gridData<scalar_t, 1>();
     }
 
     ~TorchGRiD() {
+        if (compute_stream) {
+            cudaStreamDestroy(compute_stream);
+        }
         grid::close_grid<scalar_t>(streams, d_robot_model, grid_data);
     }
 
@@ -44,39 +72,50 @@ public:
         scalar_t* qd_ptr = qd.data_ptr<scalar_t>();
         scalar_t* u_ptr = u.data_ptr<scalar_t>();
 
-        // Copy directly to device memory
-        cudaMemcpy(grid_data->d_q_qd_u, q_ptr, grid::NUM_JOINTS * sizeof(scalar_t), cudaMemcpyDeviceToDevice);
-        cudaMemcpy(grid_data->d_q_qd_u + grid::NUM_JOINTS, qd_ptr, grid::NUM_JOINTS * sizeof(scalar_t), cudaMemcpyDeviceToDevice);
-        cudaMemcpy(grid_data->d_q_qd_u + 2 * grid::NUM_JOINTS, u_ptr, grid::NUM_JOINTS * sizeof(scalar_t), cudaMemcpyDeviceToDevice);
+        // Use async copies with the compute stream
+        CUDA_CHECK(cudaMemcpyAsync(grid_data->d_q_qd_u, q_ptr, 
+                                   grid::NUM_JOINTS * sizeof(scalar_t), 
+                                   cudaMemcpyDeviceToDevice, compute_stream));
+        CUDA_CHECK(cudaMemcpyAsync(grid_data->d_q_qd_u + grid::NUM_JOINTS, qd_ptr, 
+                                   grid::NUM_JOINTS * sizeof(scalar_t), 
+                                   cudaMemcpyDeviceToDevice, compute_stream));
+        CUDA_CHECK(cudaMemcpyAsync(grid_data->d_q_qd_u + 2 * grid::NUM_JOINTS, u_ptr, 
+                                   grid::NUM_JOINTS * sizeof(scalar_t), 
+                                   cudaMemcpyDeviceToDevice, compute_stream));
         
-        cudaDeviceSynchronize();
+        // Synchronize the stream
+        CUDA_CHECK(cudaStreamSynchronize(compute_stream));
     }
 
     torch::Tensor inverse_dynamics_torch(torch::Tensor q, torch::Tensor qd, torch::Tensor u) {
         load_state_from_torch(q, qd, u);
         
+        // Call GRiD kernel
         grid::inverse_dynamics<scalar_t, false, false>(
             grid_data, d_robot_model, gravity, 1,
             dim3(1, 1, 1), dimms, streams
         );
         
-        // Create output tensor on GPU
+        // Create output tensor on the same device as input
         auto options = torch::TensorOptions()
             .dtype(q.dtype())
             .device(q.device());
         
         torch::Tensor output = torch::empty({grid::NUM_JOINTS}, options);
         
-        // Copy result directly to tensor
-        cudaMemcpy(output.data_ptr<scalar_t>(), grid_data->d_c, 
-                   grid::NUM_JOINTS * sizeof(scalar_t), cudaMemcpyDeviceToDevice);
+        // Copy result to tensor
+        CUDA_CHECK(cudaMemcpyAsync(output.data_ptr<scalar_t>(), grid_data->d_c, 
+                                   grid::NUM_JOINTS * sizeof(scalar_t), 
+                                   cudaMemcpyDeviceToDevice, compute_stream));
         
+        CUDA_CHECK(cudaStreamSynchronize(compute_stream));
         return output;
     }
 
     std::vector<torch::Tensor> inverse_dynamics_gradient_torch(torch::Tensor q, torch::Tensor qd, torch::Tensor u) {
         load_state_from_torch(q, qd, u);
         
+        // Call GRiD gradient kernel
         grid::inverse_dynamics_gradient<scalar_t, true, false>(
             grid_data, d_robot_model, gravity, 1, 
             dim3(1, 1, 1), dimms, streams
@@ -90,15 +129,16 @@ public:
         torch::Tensor dc_dqd = torch::empty({grid::NUM_JOINTS, grid::NUM_JOINTS}, options);
         
         // Copy gradients to tensors
-        cudaMemcpy(dc_dq.data_ptr<scalar_t>(), grid_data->d_dc_du, 
-                   grid::NUM_JOINTS * grid::NUM_JOINTS * sizeof(scalar_t), 
-                   cudaMemcpyDeviceToDevice);
+        CUDA_CHECK(cudaMemcpyAsync(dc_dq.data_ptr<scalar_t>(), grid_data->d_dc_du, 
+                                   grid::NUM_JOINTS * grid::NUM_JOINTS * sizeof(scalar_t), 
+                                   cudaMemcpyDeviceToDevice, compute_stream));
         
-        cudaMemcpy(dc_dqd.data_ptr<scalar_t>(), 
-                   grid_data->d_dc_du + grid::NUM_JOINTS * grid::NUM_JOINTS, 
-                   grid::NUM_JOINTS * grid::NUM_JOINTS * sizeof(scalar_t), 
-                   cudaMemcpyDeviceToDevice);
+        CUDA_CHECK(cudaMemcpyAsync(dc_dqd.data_ptr<scalar_t>(), 
+                                   grid_data->d_dc_du + grid::NUM_JOINTS * grid::NUM_JOINTS, 
+                                   grid::NUM_JOINTS * grid::NUM_JOINTS * sizeof(scalar_t), 
+                                   cudaMemcpyDeviceToDevice, compute_stream));
         
+        CUDA_CHECK(cudaStreamSynchronize(compute_stream));
         return {dc_dq, dc_dqd};
     }
 
@@ -116,9 +156,11 @@ public:
         
         torch::Tensor output = torch::empty({grid::NUM_JOINTS}, options);
         
-        cudaMemcpy(output.data_ptr<scalar_t>(), grid_data->d_qdd, 
-                   grid::NUM_JOINTS * sizeof(scalar_t), cudaMemcpyDeviceToDevice);
+        CUDA_CHECK(cudaMemcpyAsync(output.data_ptr<scalar_t>(), grid_data->d_qdd, 
+                                   grid::NUM_JOINTS * sizeof(scalar_t), 
+                                   cudaMemcpyDeviceToDevice, compute_stream));
         
+        CUDA_CHECK(cudaStreamSynchronize(compute_stream));
         return output;
     }
 
@@ -138,21 +180,22 @@ public:
         torch::Tensor df_dqd = torch::empty({grid::NUM_JOINTS, grid::NUM_JOINTS}, options);
         torch::Tensor df_du = torch::empty({grid::NUM_JOINTS, grid::NUM_JOINTS}, options);
         
-        // Copy gradients
-        cudaMemcpy(df_dq.data_ptr<scalar_t>(), grid_data->d_df_du, 
-                   grid::NUM_JOINTS * grid::NUM_JOINTS * sizeof(scalar_t), 
-                   cudaMemcpyDeviceToDevice);
+        // Copy gradients with async operations
+        CUDA_CHECK(cudaMemcpyAsync(df_dq.data_ptr<scalar_t>(), grid_data->d_df_du, 
+                                   grid::NUM_JOINTS * grid::NUM_JOINTS * sizeof(scalar_t), 
+                                   cudaMemcpyDeviceToDevice, compute_stream));
         
-        cudaMemcpy(df_dqd.data_ptr<scalar_t>(), 
-                   grid_data->d_df_du + grid::NUM_JOINTS * grid::NUM_JOINTS, 
-                   grid::NUM_JOINTS * grid::NUM_JOINTS * sizeof(scalar_t), 
-                   cudaMemcpyDeviceToDevice);
+        CUDA_CHECK(cudaMemcpyAsync(df_dqd.data_ptr<scalar_t>(), 
+                                   grid_data->d_df_du + grid::NUM_JOINTS * grid::NUM_JOINTS, 
+                                   grid::NUM_JOINTS * grid::NUM_JOINTS * sizeof(scalar_t), 
+                                   cudaMemcpyDeviceToDevice, compute_stream));
         
-        cudaMemcpy(df_du.data_ptr<scalar_t>(), 
-                   grid_data->d_df_du + 2 * grid::NUM_JOINTS * grid::NUM_JOINTS, 
-                   grid::NUM_JOINTS * grid::NUM_JOINTS * sizeof(scalar_t), 
-                   cudaMemcpyDeviceToDevice);
+        CUDA_CHECK(cudaMemcpyAsync(df_du.data_ptr<scalar_t>(), 
+                                   grid_data->d_df_du + 2 * grid::NUM_JOINTS * grid::NUM_JOINTS, 
+                                   grid::NUM_JOINTS * grid::NUM_JOINTS * sizeof(scalar_t), 
+                                   cudaMemcpyDeviceToDevice, compute_stream));
         
+        CUDA_CHECK(cudaStreamSynchronize(compute_stream));
         return {df_dq, df_dqd, df_du};
     }
 
@@ -170,10 +213,11 @@ public:
         
         torch::Tensor output = torch::empty({grid::NUM_JOINTS, grid::NUM_JOINTS}, options);
         
-        cudaMemcpy(output.data_ptr<scalar_t>(), grid_data->d_Minv, 
-                   grid::NUM_JOINTS * grid::NUM_JOINTS * sizeof(scalar_t), 
-                   cudaMemcpyDeviceToDevice);
+        CUDA_CHECK(cudaMemcpyAsync(output.data_ptr<scalar_t>(), grid_data->d_Minv, 
+                                   grid::NUM_JOINTS * grid::NUM_JOINTS * sizeof(scalar_t), 
+                                   cudaMemcpyDeviceToDevice, compute_stream));
         
+        CUDA_CHECK(cudaStreamSynchronize(compute_stream));
         return output;
     }
 
@@ -191,10 +235,11 @@ public:
         
         torch::Tensor output = torch::empty({6 * grid::NUM_EES}, options);
         
-        cudaMemcpy(output.data_ptr<scalar_t>(), grid_data->d_eePos, 
-                   6 * grid::NUM_EES * sizeof(scalar_t), 
-                   cudaMemcpyDeviceToDevice);
+        CUDA_CHECK(cudaMemcpyAsync(output.data_ptr<scalar_t>(), grid_data->d_eePos, 
+                                   6 * grid::NUM_EES * sizeof(scalar_t), 
+                                   cudaMemcpyDeviceToDevice, compute_stream));
         
+        CUDA_CHECK(cudaStreamSynchronize(compute_stream));
         return output;
     }
 
@@ -212,42 +257,48 @@ public:
         
         torch::Tensor output = torch::empty({6, grid::NUM_EES * grid::NUM_JOINTS}, options);
         
-        cudaMemcpy(output.data_ptr<scalar_t>(), grid_data->d_deePos, 
-                   6 * grid::NUM_EES * grid::NUM_JOINTS * sizeof(scalar_t), 
-                   cudaMemcpyDeviceToDevice);
+        CUDA_CHECK(cudaMemcpyAsync(output.data_ptr<scalar_t>(), grid_data->d_deePos, 
+                                   6 * grid::NUM_EES * grid::NUM_JOINTS * sizeof(scalar_t), 
+                                   cudaMemcpyDeviceToDevice, compute_stream));
         
+        CUDA_CHECK(cudaStreamSynchronize(compute_stream));
         return output;
     }
 };
 
-// Global instance management
-std::unique_ptr<TorchGRiD<float>> grid_float_instance;
-std::unique_ptr<TorchGRiD<double>> grid_double_instance;
+// Global instance management with thread safety
+namespace {
+    std::unique_ptr<TorchGRiD<float>> grid_float_instance;
+    std::unique_ptr<TorchGRiD<double>> grid_double_instance;
+    std::mutex grid_mutex;
+}
 
 // Initialize the grid with a specific robot
 void init_grid_float(float gravity) {
+    std::lock_guard<std::mutex> lock(grid_mutex);
     grid_float_instance = std::make_unique<TorchGRiD<float>>(gravity);
 }
 
 void init_grid_double(double gravity) {
+    std::lock_guard<std::mutex> lock(grid_mutex);
     grid_double_instance = std::make_unique<TorchGRiD<double>>(gravity);
 }
 
 // Wrapper functions that dispatch based on tensor dtype
 torch::Tensor inverse_dynamics(torch::Tensor q, torch::Tensor qd, torch::Tensor u) {
-    if (q.dtype() == torch::kFloat32) {
+    if (q.scalar_type() == torch::ScalarType::Float) {
         TORCH_CHECK(grid_float_instance, "GRiD float instance not initialized");
         return grid_float_instance->inverse_dynamics_torch(q, qd, u);
-    } else if (q.dtype() == torch::kFloat64) {
+    } else if (q.scalar_type() == torch::ScalarType::Double) {
         TORCH_CHECK(grid_double_instance, "GRiD double instance not initialized");
         return grid_double_instance->inverse_dynamics_torch(q, qd, u);
     } else {
-        TORCH_CHECK(false, "Unsupported dtype. Only float32 and float64 are supported.");
+        AT_ERROR("Unsupported dtype. Only float32 and float64 are supported.");
     }
 }
 
 std::vector<torch::Tensor> inverse_dynamics_gradient(torch::Tensor q, torch::Tensor qd, torch::Tensor u) {
-    if (q.dtype() == torch::kFloat32) {
+    if (q.scalar_type() == torch::ScalarType::Float) {
         TORCH_CHECK(grid_float_instance, "GRiD float instance not initialized");
         return grid_float_instance->inverse_dynamics_gradient_torch(q, qd, u);
     } else {
@@ -257,7 +308,7 @@ std::vector<torch::Tensor> inverse_dynamics_gradient(torch::Tensor q, torch::Ten
 }
 
 torch::Tensor forward_dynamics(torch::Tensor q, torch::Tensor qd, torch::Tensor u) {
-    if (q.dtype() == torch::kFloat32) {
+    if (q.scalar_type() == torch::ScalarType::Float) {
         TORCH_CHECK(grid_float_instance, "GRiD float instance not initialized");
         return grid_float_instance->forward_dynamics_torch(q, qd, u);
     } else {
@@ -267,7 +318,7 @@ torch::Tensor forward_dynamics(torch::Tensor q, torch::Tensor qd, torch::Tensor 
 }
 
 std::vector<torch::Tensor> forward_dynamics_gradient(torch::Tensor q, torch::Tensor qd, torch::Tensor u) {
-    if (q.dtype() == torch::kFloat32) {
+    if (q.scalar_type() == torch::ScalarType::Float) {
         TORCH_CHECK(grid_float_instance, "GRiD float instance not initialized");
         return grid_float_instance->forward_dynamics_gradient_torch(q, qd, u);
     } else {
@@ -277,7 +328,7 @@ std::vector<torch::Tensor> forward_dynamics_gradient(torch::Tensor q, torch::Ten
 }
 
 torch::Tensor minv(torch::Tensor q, torch::Tensor qd, torch::Tensor u) {
-    if (q.dtype() == torch::kFloat32) {
+    if (q.scalar_type() == torch::ScalarType::Float) {
         TORCH_CHECK(grid_float_instance, "GRiD float instance not initialized");
         return grid_float_instance->minv_torch(q, qd, u);
     } else {
@@ -287,7 +338,7 @@ torch::Tensor minv(torch::Tensor q, torch::Tensor qd, torch::Tensor u) {
 }
 
 torch::Tensor end_effector_positions(torch::Tensor q, torch::Tensor qd, torch::Tensor u) {
-    if (q.dtype() == torch::kFloat32) {
+    if (q.scalar_type() == torch::ScalarType::Float) {
         TORCH_CHECK(grid_float_instance, "GRiD float instance not initialized");
         return grid_float_instance->end_effector_positions_torch(q, qd, u);
     } else {
@@ -297,7 +348,7 @@ torch::Tensor end_effector_positions(torch::Tensor q, torch::Tensor qd, torch::T
 }
 
 torch::Tensor end_effector_gradients(torch::Tensor q, torch::Tensor qd, torch::Tensor u) {
-    if (q.dtype() == torch::kFloat32) {
+    if (q.scalar_type() == torch::ScalarType::Float) {
         TORCH_CHECK(grid_float_instance, "GRiD float instance not initialized");
         return grid_float_instance->end_effector_gradients_torch(q, qd, u);
     } else {

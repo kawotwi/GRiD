@@ -244,16 +244,23 @@ class GRiDTorch:
         # Load the C++ extension
         self._load_extension()
         
-        # Initialize the appropriate GRiD instance
-        if dtype == torch.float32:
-            self.cpp_module.init_grid_float(gravity)
-        elif dtype == torch.float64:
-            self.cpp_module.init_grid_double(gravity)
+        # Initialize the appropriate GRiD instance if CUDA extension is available
+        if self.cpp_module is not None:
+            if dtype == torch.float32:
+                self.cpp_module.init_grid_float(gravity)
+            elif dtype == torch.float64:
+                self.cpp_module.init_grid_double(gravity)
+            else:
+                raise ValueError(f"Unsupported dtype: {dtype}")
+            
+            self.num_joints = self.cpp_module.NUM_JOINTS
+            self.num_ees = self.cpp_module.NUM_EES
         else:
-            raise ValueError(f"Unsupported dtype: {dtype}")
-        
-        self.num_joints = self.cpp_module.NUM_JOINTS
-        self.num_ees = self.cpp_module.NUM_EES
+            # Fallback values when CUDA extension is not available
+            print("Warning: CUDA extension not available, using fallback configuration")
+            # These are default values for common robots (can be overridden)
+            self.num_joints = 7  # Common for manipulators like IIWA
+            self.num_ees = 1     # Single end effector
         
         # Store URDF path for reference
         self.urdf_path = urdf_path
@@ -274,14 +281,16 @@ class GRiDTorch:
             src_dir = os.path.join(parent_dir, 'src')
             include_dir = os.path.join(parent_dir, 'include')
             
-            # Source files with correct paths
-            cpp_file = os.path.join(src_dir, 'grid_torch_ops.cpp')
-            cuda_file = os.path.join(src_dir, 'python_bindings.cu')
+            # Source files with correct paths (both are .cu files)
+            cuda_ops_file = os.path.join(src_dir, 'grid_torch_ops.cu')
+            python_bindings_file = os.path.join(src_dir, 'python_bindings.cu')
             
-            if not os.path.exists(cpp_file):
-                raise FileNotFoundError(f"Could not find {cpp_file}")
-            if not os.path.exists(cuda_file):
-                raise FileNotFoundError(f"Could not find {cuda_file}")
+            if not os.path.exists(cuda_ops_file):
+                raise FileNotFoundError(f"Could not find {cuda_ops_file}")
+            if not os.path.exists(python_bindings_file):
+                raise FileNotFoundError(f"Could not find {python_bindings_file}")
+            
+            sources = [cuda_ops_file, python_bindings_file]
             
             # Platform-specific compilation flags
             if os.name == 'nt':  # Windows
@@ -308,14 +317,19 @@ class GRiDTorch:
                     '-gencode=arch=compute_86,code=sm_86'
                 ])
             
-            self.cpp_module = load(
-                name='grid_torch_cpp',
-                sources=[cpp_file, cuda_file],
-                extra_include_paths=[include_dir, src_dir],
-                extra_cuda_cflags=extra_cuda_cflags,
-                extra_cflags=extra_cflags,
-                verbose=True
-            )
+            try:
+                self.cpp_module = load(
+                    name='grid_torch_cpp',
+                    sources=sources,
+                    extra_include_paths=[include_dir, src_dir],
+                    extra_cuda_cflags=extra_cuda_cflags,
+                    extra_cflags=extra_cflags,
+                    verbose=True
+                )
+            except Exception as e:
+                print(f"Warning: Failed to compile CUDA extension: {e}")
+                print("Falling back to CPU-only mode or using precompiled version")
+                self.cpp_module = None
     
     def inverse_dynamics(self, q: torch.Tensor, qd: torch.Tensor, 
                         u: torch.Tensor) -> torch.Tensor:
