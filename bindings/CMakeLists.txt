@@ -8,9 +8,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Find CUDA
 find_package(CUDA REQUIRED)
 
-# Find Python and pybind11
+# Find Python and pybind11 and pytorch
 find_package(Python COMPONENTS Interpreter Development REQUIRED)
 find_package(pybind11 CONFIG REQUIRED)
+find_package(Torch REQUIRED)
 
 # CUDA compute capability
 # You may need to adjust these based on your GPU
@@ -19,6 +20,11 @@ set(CMAKE_CUDA_ARCHITECTURES 86)
 # Include directories
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 include_directories(${CUDA_INCLUDE_DIRS})
+
+# Pytorch include directories
+include_directories(${TORCH_INCLUDE_DIRS})
+target_link_libraries(your_target "${TORCH_LIBRARIES}")
+set_property(TARGET your_target PROPERTY CXX_STANDARD 14)
 
 # Define the CUDA source file
 set(CUDA_SOURCES src/python_bindings.cu)

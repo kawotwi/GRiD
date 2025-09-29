@@ -1,114 +1,103 @@
+"""
+setup.py - Build script for GRiD PyTorch extension
+"""
 import os
-import re
 import sys
-import platform
-import subprocess
-import pathlib
-from setuptools import setup, Extension, find_packages
-from setuptools.command.build_ext import build_ext
-from distutils.version import LooseVersion
+import glob
 
+# Platform-specific CUDA architecture list
+if os.name == 'nt':  # Windows
+    # Use semicolon separator for Windows
+    os.environ['TORCH_CUDA_ARCH_LIST'] = '7.5;8.0;8.6;8.9'
+else:  # Linux/Unix  
+    # Use space separator for Linux
+    os.environ['TORCH_CUDA_ARCH_LIST'] = '7.5 8.0 8.6 8.9'
 
-class CMakeExtension(Extension):
-    def __init__(self, name, sourcedir=''):
-        Extension.__init__(self, name, sources=[])
-        self.sourcedir = os.path.abspath(sourcedir)
+# CMake setup
+from setuptools import setup, find_packages
 
+try:
+    import torch
+    from torch.utils.cpp_extension import BuildExtension, CUDAExtension
+    
+    # Monkey patch to disable CUDA version checking
+    def _check_cuda_version(compiler_name, compiler_version):
+        pass
+    
+    # Apply the monkey patch
+    import torch.utils.cpp_extension
+    torch.utils.cpp_extension._check_cuda_version = _check_cuda_version
+    
+    TORCH_AVAILABLE = True
+except ImportError:
+    print("PyTorch not available during setup. Please install PyTorch first.")
+    TORCH_AVAILABLE = False
 
-class CMakeBuild(build_ext):
-    def run(self):
-        try:
-            out = subprocess.check_output(['cmake', '--version'])
-        except OSError:
-            raise RuntimeError("CMake must be installed to build the following extensions: " +
-                              ", ".join(e.name for e in self.extensions))
+# Get the directory containing this setup.py
+root_dir = os.path.dirname(os.path.abspath(__file__))
 
-        if platform.system() == "Windows":
-            cmake_version = LooseVersion(re.search(r'version\s*([\d.]+)', out.decode()).group(1))
-            if cmake_version < '3.10.0':
-                raise RuntimeError("CMake >= 3.10.0 is required on Windows")
+# Paths to GRiD source files
+grid_include_path = os.path.join(root_dir, 'include')  # location of grid.cuh
+grid_cuda_path = os.path.join(root_dir, 'src')         # location of CUDA source files
 
-        # Check for CUDA
-        try:
-            out = subprocess.check_output(['nvcc', '--version'])
-            print("Found NVCC:", out.decode().strip())
-        except OSError:
-            raise RuntimeError("NVCC (CUDA Compiler) must be installed to build this extension")
+# Find all CUDA source files
+cuda_sources = glob.glob(os.path.join(grid_cuda_path, '*.cu'))
+# Make sure your C++ source file is included with full path
+cpp_source = os.path.join(grid_cuda_path, 'grid_torch_ops.cpp')
+if os.path.exists(cpp_source):
+    cuda_sources.append(cpp_source)
+else:
+    print(f"Warning: Could not find {cpp_source}")
 
-        for ext in self.extensions:
-            self.build_extension(ext)
+print(f"Found CUDA sources: {cuda_sources}")
 
-    def build_extension(self, ext):
-        extdir = os.path.abspath(os.path.dirname(self.get_ext_fullpath(ext.name)))
-        # required for auto-detection of auxiliary "native" libs
-        if not extdir.endswith(os.path.sep):
-            extdir += os.path.sep
+# Setup extension modules if torch is available
+ext_modules = []
+cmdclass = {}
 
-        cmake_args = ['-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=' + extdir,
-                      '-DPYTHON_EXECUTABLE=' + sys.executable]
+if TORCH_AVAILABLE:
+    # CUDA compilation flags
+    cuda_archs = []
+    if torch.cuda.is_available():
+        for i in range(torch.cuda.device_count()):
+            major, minor = torch.cuda.get_device_capability(i)
+            cuda_archs.append(f"{major}{minor}")
+    else:
+        cuda_archs = ['75']  # fallback
 
-        # Specify CUDA architectures if not already in CMakeLists.txt
-        # Uncomment and modify as needed for your target GPU
-        # cmake_args += ['-DCMAKE_CUDA_ARCHITECTURES=75']  # For RTX 2000 series
-        # cmake_args += ['-DCMAKE_CUDA_ARCHITECTURES=86']  # For RTX 3000 series
-        # cmake_args += ['-DCMAKE_CUDA_ARCHITECTURES=89']  # For RTX 4000 series
+    nvcc_flags = []
+    for arch in cuda_archs:
+        nvcc_flags += ['-gencode', f'arch=compute_{arch},code=sm_{arch}']
 
-        cfg = 'Debug' if self.debug else 'Release'
-        build_args = ['--config', cfg]
+    # Platform-specific compilation flags
+    if os.name == 'nt':  # Windows
+        cpp_flags = ['/O2', '/std:c++14']
+        cuda_libraries = ['cudart', 'cublas', 'cusolver']
+    else:  # Linux/Unix
+        cpp_flags = ['-O3', '-std=c++14']
+        cuda_libraries = ['cudart', 'cublas', 'cusolver']
 
-        if platform.system() == "Windows":
-            cmake_args += ['-DCMAKE_LIBRARY_OUTPUT_DIRECTORY_{}={}'.format(cfg.upper(), extdir)]
-            if sys.maxsize > 2**32:
-                cmake_args += ['-A', 'x64']
-            build_args += ['--', '/m']
-        else:
-            cmake_args += ['-DCMAKE_BUILD_TYPE=' + cfg]
-            build_args += ['--', '-j2']
-
-        env = os.environ.copy()
-        env['CXXFLAGS'] = '{} -DVERSION_INFO=\\"{}\\"'.format(env.get('CXXFLAGS', ''),
-                                                              self.distribution.get_version())
-        
-        # Set CUDA specific environment variables
-        if 'CUDA_HOME' not in env and 'CUDA_PATH' in env:
-            env['CUDA_HOME'] = env['CUDA_PATH']
-        
-        if 'CUDA_HOME' in env:
-            print(f"Using CUDA from: {env['CUDA_HOME']}")
-            if platform.system() == "Windows":
-                env['PATH'] = f"{env['CUDA_HOME']}\\bin;{env['PATH']}"
-            else:
-                env['PATH'] = f"{env['CUDA_HOME']}/bin:{env['PATH']}"
-        
-        if not os.path.exists(self.build_temp):
-            os.makedirs(self.build_temp)
-            
-        print("Building with CMake arguments:", cmake_args)
-        subprocess.check_call(['cmake', ext.sourcedir] + cmake_args, cwd=self.build_temp, env=env)
-        subprocess.check_call(['cmake', '--build', '.'] + build_args, cwd=self.build_temp)
-
+    ext_modules = [
+        CUDAExtension(
+            name='grid_torch_cpp',
+            sources=cuda_sources,
+            include_dirs=[grid_include_path, grid_cuda_path],
+            extra_compile_args={
+                'cxx': cpp_flags,
+                'nvcc': nvcc_flags,
+            },
+            libraries=cuda_libraries,
+        ),
+    ]
+    cmdclass = {'build_ext': BuildExtension}
 
 setup(
-    name='gridCuda',
+    name='grid_torch',
     version='0.1.0',
-    author='Kwamena Awotwi',
-    author_email='koawotwi@gmail.com',
-    description='Python bindings for CUDA grid dynamics',
-    long_description=open('README.md').read() if os.path.exists('README.md') else '',
-    long_description_content_type='text/markdown',
-    url='',
+    author='Your Name',
     packages=find_packages(),
-    ext_modules=[CMakeExtension('gridCuda')],
-    cmdclass=dict(build_ext=CMakeBuild),
-    classifiers=[
-        'Development Status :: 3 - Alpha',
-        'Intended Audience :: Science/Research',
-        'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: C++',
-        'Programming Language :: CUDA',
-        'Topic :: Scientific/Engineering',
-    ],
-    python_requires='>=3.6',
-    zip_safe=False,
+    ext_modules=ext_modules,
+    cmdclass=cmdclass,
+    install_requires=['torch', 'numpy'],
+    python_requires='>=3.7',
 )

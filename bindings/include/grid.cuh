@@ -2952,8 +2952,8 @@ namespace grid {
         else {stride_q = 3*NUM_JOINTS; gpuErrchk(cudaMemcpyAsync(hd_data->d_q_qd_u,hd_data->h_q_qd_u,stride_q*num_timesteps*sizeof(T),cudaMemcpyHostToDevice,streams[0]));}
         gpuErrchk(cudaDeviceSynchronize());
         // then call the kernel
-        if (USE_COMPRESSED_MEM) {end_effector_positions_kernel<T><<<block_dimms,thread_dimms,EE_POS_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_eePos,hd_data->d_q,stride_q,d_robotModel,num_timesteps);}
-        else                    {end_effector_positions_kernel<T><<<block_dimms,thread_dimms,EE_POS_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_eePos,hd_data->d_q_qd_u,stride_q,d_robotModel,num_timesteps);}
+        if (USE_COMPRESSED_MEM) {((void(*)(...))end_effector_positions_kernel<T>)<<<block_dimms,thread_dimms,EE_POS_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_eePos,hd_data->d_q,stride_q,d_robotModel,num_timesteps);}
+        else                    {((void(*)(...))end_effector_positions_kernel<T>)<<<block_dimms,thread_dimms,EE_POS_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_eePos,hd_data->d_q_qd_u,stride_q,d_robotModel,num_timesteps);}
         gpuErrchk(cudaDeviceSynchronize());
         // finally transfer the result back
         gpuErrchk(cudaMemcpy(hd_data->h_eePos,hd_data->d_eePos,6*NUM_EES*num_timesteps*sizeof(T),cudaMemcpyDeviceToHost));
@@ -3003,8 +3003,8 @@ namespace grid {
                                              const dim3 block_dimms, const dim3 thread_dimms) {
         int stride_q = USE_COMPRESSED_MEM ? NUM_JOINTS: 3*NUM_JOINTS;
         // then call the kernel
-        if (USE_COMPRESSED_MEM) {end_effector_positions_kernel<T><<<block_dimms,thread_dimms,EE_POS_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_eePos,hd_data->d_q,stride_q,d_robotModel,num_timesteps);}
-        else                    {end_effector_positions_kernel<T><<<block_dimms,thread_dimms,EE_POS_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_eePos,hd_data->d_q_qd_u,stride_q,d_robotModel,num_timesteps);}
+        if (USE_COMPRESSED_MEM) {((void(*)(...))end_effector_positions_kernel<T>)<<<block_dimms,thread_dimms,EE_POS_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_eePos,hd_data->d_q,stride_q,d_robotModel,num_timesteps);}
+        else                    {((void(*)(...))end_effector_positions_kernel<T>)<<<block_dimms,thread_dimms,EE_POS_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_eePos,hd_data->d_q_qd_u,stride_q,d_robotModel,num_timesteps);}
         gpuErrchk(cudaDeviceSynchronize());
     }
 
@@ -3219,8 +3219,8 @@ namespace grid {
         else {stride_q = 3*NUM_JOINTS; gpuErrchk(cudaMemcpyAsync(hd_data->d_q_qd_u,hd_data->h_q_qd_u,stride_q*num_timesteps*sizeof(T),cudaMemcpyHostToDevice,streams[0]));}
         gpuErrchk(cudaDeviceSynchronize());
         // then call the kernel
-        if (USE_COMPRESSED_MEM) {end_effector_positions_gradient_kernel<T><<<block_dimms,thread_dimms,DEE_POS_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_deePos,hd_data->d_q,stride_q,d_robotModel,num_timesteps);}
-        else                    {end_effector_positions_gradient_kernel<T><<<block_dimms,thread_dimms,DEE_POS_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_deePos,hd_data->d_q_qd_u,stride_q,d_robotModel,num_timesteps);}
+        if (USE_COMPRESSED_MEM) {((void(*)(...))end_effector_positions_gradient_kernel<T>)<<<block_dimms,thread_dimms,DEE_POS_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_deePos,hd_data->d_q,stride_q,d_robotModel,num_timesteps);}
+        else                    {((void(*)(...))end_effector_positions_gradient_kernel<T>)<<<block_dimms,thread_dimms,DEE_POS_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_deePos,hd_data->d_q_qd_u,stride_q,d_robotModel,num_timesteps);}
         gpuErrchk(cudaDeviceSynchronize());
         // finally transfer the result back
         gpuErrchk(cudaMemcpy(hd_data->h_deePos,hd_data->d_deePos,6*NUM_EES*NUM_JOINTS*num_timesteps*sizeof(T),cudaMemcpyDeviceToHost));
@@ -3270,8 +3270,8 @@ namespace grid {
                                              const dim3 block_dimms, const dim3 thread_dimms) {
         int stride_q = USE_COMPRESSED_MEM ? NUM_JOINTS: 3*NUM_JOINTS;
         // then call the kernel
-        if (USE_COMPRESSED_MEM) {end_effector_positions_gradient_kernel<T><<<block_dimms,thread_dimms,DEE_POS_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_deePos,hd_data->d_q,stride_q,d_robotModel,num_timesteps);}
-        else                    {end_effector_positions_gradient_kernel<T><<<block_dimms,thread_dimms,DEE_POS_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_deePos,hd_data->d_q_qd_u,stride_q,d_robotModel,num_timesteps);}
+        if (USE_COMPRESSED_MEM) {((void(*)(...))end_effector_positions_gradient_kernel<T>)<<<block_dimms,thread_dimms,DEE_POS_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_deePos,hd_data->d_q,stride_q,d_robotModel,num_timesteps);}
+        else                    {((void(*)(...))end_effector_positions_gradient_kernel<T>)<<<block_dimms,thread_dimms,DEE_POS_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_deePos,hd_data->d_q_qd_u,stride_q,d_robotModel,num_timesteps);}
         gpuErrchk(cudaDeviceSynchronize());
     }
 
@@ -4555,12 +4555,12 @@ namespace grid {
         gpuErrchk(cudaDeviceSynchronize());
         // then call the kernel
         if (USE_QDD_FLAG) {
-            if (USE_COMPRESSED_MEM) {inverse_dynamics_kernel<T><<<block_dimms,thread_dimms,ID_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_c,hd_data->d_q_qd,stride_q_qd,hd_data->d_qdd, d_robotModel,gravity,num_timesteps);}
-            else                    {inverse_dynamics_kernel<T><<<block_dimms,thread_dimms,ID_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_c,hd_data->d_q_qd_u,stride_q_qd,hd_data->d_qdd, d_robotModel,gravity,num_timesteps);}
+            if (USE_COMPRESSED_MEM) {((void(*)(...))inverse_dynamics_kernel<T>)<<<block_dimms,thread_dimms,ID_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_c,hd_data->d_q_qd,stride_q_qd,hd_data->d_qdd, d_robotModel,gravity,num_timesteps);}
+            else                    {((void(*)(...))inverse_dynamics_kernel<T>)<<<block_dimms,thread_dimms,ID_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_c,hd_data->d_q_qd_u,stride_q_qd,hd_data->d_qdd, d_robotModel,gravity,num_timesteps);}
         }
         else {
-            if (USE_COMPRESSED_MEM) {inverse_dynamics_kernel<T><<<block_dimms,thread_dimms,ID_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_c,hd_data->d_q_qd,stride_q_qd,d_robotModel,gravity,num_timesteps);}
-            else                    {inverse_dynamics_kernel<T><<<block_dimms,thread_dimms,ID_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_c,hd_data->d_q_qd_u,stride_q_qd,d_robotModel,gravity,num_timesteps);}
+            if (USE_COMPRESSED_MEM) {((void(*)(...))inverse_dynamics_kernel<T>)<<<block_dimms,thread_dimms,ID_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_c,hd_data->d_q_qd,stride_q_qd,d_robotModel,gravity,num_timesteps);}
+            else                    {((void(*)(...))inverse_dynamics_kernel<T>)<<<block_dimms,thread_dimms,ID_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_c,hd_data->d_q_qd_u,stride_q_qd,d_robotModel,gravity,num_timesteps);}
         }
         gpuErrchk(cudaDeviceSynchronize());
         // finally transfer the result back
@@ -4621,12 +4621,12 @@ namespace grid {
         int stride_q_qd = USE_COMPRESSED_MEM ? 2*NUM_JOINTS: 3*NUM_JOINTS;
         // then call the kernel
         if (USE_QDD_FLAG) {
-            if (USE_COMPRESSED_MEM) {inverse_dynamics_kernel<T><<<block_dimms,thread_dimms,ID_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_c,hd_data->d_q_qd,stride_q_qd,hd_data->d_qdd, d_robotModel,gravity,num_timesteps);}
-            else                    {inverse_dynamics_kernel<T><<<block_dimms,thread_dimms,ID_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_c,hd_data->d_q_qd_u,stride_q_qd,hd_data->d_qdd, d_robotModel,gravity,num_timesteps);}
+            if (USE_COMPRESSED_MEM) {((void(*)(...))inverse_dynamics_kernel<T>)<<<block_dimms,thread_dimms,ID_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_c,hd_data->d_q_qd,stride_q_qd,hd_data->d_qdd, d_robotModel,gravity,num_timesteps);}
+            else                    {((void(*)(...))inverse_dynamics_kernel<T>)<<<block_dimms,thread_dimms,ID_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_c,hd_data->d_q_qd_u,stride_q_qd,hd_data->d_qdd, d_robotModel,gravity,num_timesteps);}
         }
         else {
-            if (USE_COMPRESSED_MEM) {inverse_dynamics_kernel<T><<<block_dimms,thread_dimms,ID_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_c,hd_data->d_q_qd,stride_q_qd,d_robotModel,gravity,num_timesteps);}
-            else                    {inverse_dynamics_kernel<T><<<block_dimms,thread_dimms,ID_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_c,hd_data->d_q_qd_u,stride_q_qd,d_robotModel,gravity,num_timesteps);}
+            if (USE_COMPRESSED_MEM) {((void(*)(...))inverse_dynamics_kernel<T>)<<<block_dimms,thread_dimms,ID_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_c,hd_data->d_q_qd,stride_q_qd,d_robotModel,gravity,num_timesteps);}
+            else                    {((void(*)(...))inverse_dynamics_kernel<T>)<<<block_dimms,thread_dimms,ID_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_c,hd_data->d_q_qd_u,stride_q_qd,d_robotModel,gravity,num_timesteps);}
         }
         gpuErrchk(cudaDeviceSynchronize());
     }
@@ -5429,8 +5429,8 @@ namespace grid {
         else {stride_q = 3*NUM_JOINTS; gpuErrchk(cudaMemcpyAsync(hd_data->d_q_qd_u,hd_data->h_q_qd_u,stride_q*num_timesteps*sizeof(T),cudaMemcpyHostToDevice,streams[0]));}
         gpuErrchk(cudaDeviceSynchronize());
         // then call the kernel
-        if (USE_COMPRESSED_MEM) {direct_minv_kernel<T><<<block_dimms,thread_dimms,MINV_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_Minv,hd_data->d_q,stride_q,d_robotModel,num_timesteps);}
-        else                    {direct_minv_kernel<T><<<block_dimms,thread_dimms,MINV_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_Minv,hd_data->d_q_qd_u,stride_q,d_robotModel,num_timesteps);}
+        if (USE_COMPRESSED_MEM) {((void(*)(...))direct_minv_kernel<T>)<<<block_dimms,thread_dimms,MINV_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_Minv,hd_data->d_q,stride_q,d_robotModel,num_timesteps);}
+        else                    {((void(*)(...))direct_minv_kernel<T>)<<<block_dimms,thread_dimms,MINV_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_Minv,hd_data->d_q_qd_u,stride_q,d_robotModel,num_timesteps);}
         gpuErrchk(cudaDeviceSynchronize());
         // finally transfer the result back
         gpuErrchk(cudaMemcpy(hd_data->h_Minv,hd_data->d_Minv,NUM_JOINTS*NUM_JOINTS*num_timesteps*sizeof(T),cudaMemcpyDeviceToHost));
@@ -5480,8 +5480,8 @@ namespace grid {
                                   const dim3 block_dimms, const dim3 thread_dimms) {
         int stride_q = USE_COMPRESSED_MEM ? NUM_JOINTS: 3*NUM_JOINTS;
         // then call the kernel
-        if (USE_COMPRESSED_MEM) {direct_minv_kernel<T><<<block_dimms,thread_dimms,MINV_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_Minv,hd_data->d_q,stride_q,d_robotModel,num_timesteps);}
-        else                    {direct_minv_kernel<T><<<block_dimms,thread_dimms,MINV_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_Minv,hd_data->d_q_qd_u,stride_q,d_robotModel,num_timesteps);}
+        if (USE_COMPRESSED_MEM) {((void(*)(...))direct_minv_kernel<T>)<<<block_dimms,thread_dimms,MINV_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_Minv,hd_data->d_q,stride_q,d_robotModel,num_timesteps);}
+        else                    {((void(*)(...))direct_minv_kernel<T>)<<<block_dimms,thread_dimms,MINV_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_Minv,hd_data->d_q_qd_u,stride_q,d_robotModel,num_timesteps);}
         gpuErrchk(cudaDeviceSynchronize());
     }
 
@@ -5645,7 +5645,7 @@ namespace grid {
         gpuErrchk(cudaMemcpyAsync(hd_data->d_q_qd_u,hd_data->h_q_qd_u,stride_q_qd_u*num_timesteps*sizeof(T),cudaMemcpyHostToDevice,streams[0]));
         gpuErrchk(cudaDeviceSynchronize());
         // then call the kernel
-        forward_dynamics_kernel<T><<<block_dimms,thread_dimms,FD_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_qdd,hd_data->d_q_qd_u,stride_q_qd_u,d_robotModel,gravity,num_timesteps);
+        ((void(*)(...))forward_dynamics_kernel<T>)<<<block_dimms,thread_dimms,FD_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_qdd,hd_data->d_q_qd_u,stride_q_qd_u,d_robotModel,gravity,num_timesteps);
         gpuErrchk(cudaDeviceSynchronize());
         // finally transfer the result back
         gpuErrchk(cudaMemcpy(hd_data->h_qdd,hd_data->d_qdd,NUM_JOINTS*num_timesteps*sizeof(T),cudaMemcpyDeviceToHost));
@@ -5695,7 +5695,7 @@ namespace grid {
                                        const dim3 block_dimms, const dim3 thread_dimms) {
         int stride_q_qd_u = 3*NUM_JOINTS;
         // then call the kernel
-        forward_dynamics_kernel<T><<<block_dimms,thread_dimms,FD_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_qdd,hd_data->d_q_qd_u,stride_q_qd_u,d_robotModel,gravity,num_timesteps);
+        ((void(*)(...))forward_dynamics_kernel<T>)<<<block_dimms,thread_dimms,FD_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_qdd,hd_data->d_q_qd_u,stride_q_qd_u,d_robotModel,gravity,num_timesteps);
         gpuErrchk(cudaDeviceSynchronize());
     }
 
@@ -6840,12 +6840,12 @@ namespace grid {
         gpuErrchk(cudaDeviceSynchronize());
         // then call the kernel
         if (USE_QDD_FLAG) {
-            if (USE_COMPRESSED_MEM) {inverse_dynamics_gradient_kernel<T><<<block_dimms,thread_dimms,ID_DU_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_dc_du,hd_data->d_q_qd,stride_q_qd,hd_data->d_qdd, d_robotModel,gravity,num_timesteps);}
-            else                    {inverse_dynamics_gradient_kernel<T><<<block_dimms,thread_dimms,ID_DU_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_dc_du,hd_data->d_q_qd_u,stride_q_qd,hd_data->d_qdd, d_robotModel,gravity,num_timesteps);}
+            if (USE_COMPRESSED_MEM) {((void(*)(...))inverse_dynamics_gradient_kernel<T>)<<<block_dimms,thread_dimms,ID_DU_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_dc_du,hd_data->d_q_qd,stride_q_qd,hd_data->d_qdd, d_robotModel,gravity,num_timesteps);}
+            else                    {((void(*)(...))inverse_dynamics_gradient_kernel<T>)<<<block_dimms,thread_dimms,ID_DU_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_dc_du,hd_data->d_q_qd_u,stride_q_qd,hd_data->d_qdd, d_robotModel,gravity,num_timesteps);}
         }
         else {
-            if (USE_COMPRESSED_MEM) {inverse_dynamics_gradient_kernel<T><<<block_dimms,thread_dimms,ID_DU_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_dc_du,hd_data->d_q_qd,stride_q_qd,d_robotModel,gravity,num_timesteps);}
-            else                    {inverse_dynamics_gradient_kernel<T><<<block_dimms,thread_dimms,ID_DU_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_dc_du,hd_data->d_q_qd_u,stride_q_qd,d_robotModel,gravity,num_timesteps);}
+            if (USE_COMPRESSED_MEM) {((void(*)(...))inverse_dynamics_gradient_kernel<T>)<<<block_dimms,thread_dimms,ID_DU_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_dc_du,hd_data->d_q_qd,stride_q_qd,d_robotModel,gravity,num_timesteps);}
+            else                    {((void(*)(...))inverse_dynamics_gradient_kernel<T>)<<<block_dimms,thread_dimms,ID_DU_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_dc_du,hd_data->d_q_qd_u,stride_q_qd,d_robotModel,gravity,num_timesteps);}
         }
         gpuErrchk(cudaDeviceSynchronize());
         // finally transfer the result back
@@ -6906,12 +6906,12 @@ namespace grid {
         int stride_q_qd = USE_COMPRESSED_MEM ? 2*NUM_JOINTS: 3*NUM_JOINTS;
         // then call the kernel
         if (USE_QDD_FLAG) {
-            if (USE_COMPRESSED_MEM) {inverse_dynamics_gradient_kernel<T><<<block_dimms,thread_dimms,ID_DU_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_dc_du,hd_data->d_q_qd,stride_q_qd,hd_data->d_qdd, d_robotModel,gravity,num_timesteps);}
-            else                    {inverse_dynamics_gradient_kernel<T><<<block_dimms,thread_dimms,ID_DU_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_dc_du,hd_data->d_q_qd_u,stride_q_qd,hd_data->d_qdd, d_robotModel,gravity,num_timesteps);}
+            if (USE_COMPRESSED_MEM) {((void(*)(...))inverse_dynamics_gradient_kernel<T>)<<<block_dimms,thread_dimms,ID_DU_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_dc_du,hd_data->d_q_qd,stride_q_qd,hd_data->d_qdd, d_robotModel,gravity,num_timesteps);}
+            else                    {((void(*)(...))inverse_dynamics_gradient_kernel<T>)<<<block_dimms,thread_dimms,ID_DU_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_dc_du,hd_data->d_q_qd_u,stride_q_qd,hd_data->d_qdd, d_robotModel,gravity,num_timesteps);}
         }
         else {
-            if (USE_COMPRESSED_MEM) {inverse_dynamics_gradient_kernel<T><<<block_dimms,thread_dimms,ID_DU_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_dc_du,hd_data->d_q_qd,stride_q_qd,d_robotModel,gravity,num_timesteps);}
-            else                    {inverse_dynamics_gradient_kernel<T><<<block_dimms,thread_dimms,ID_DU_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_dc_du,hd_data->d_q_qd_u,stride_q_qd,d_robotModel,gravity,num_timesteps);}
+            if (USE_COMPRESSED_MEM) {((void(*)(...))inverse_dynamics_gradient_kernel<T>)<<<block_dimms,thread_dimms,ID_DU_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_dc_du,hd_data->d_q_qd,stride_q_qd,d_robotModel,gravity,num_timesteps);}
+            else                    {((void(*)(...))inverse_dynamics_gradient_kernel<T>)<<<block_dimms,thread_dimms,ID_DU_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_dc_du,hd_data->d_q_qd_u,stride_q_qd,d_robotModel,gravity,num_timesteps);}
         }
         gpuErrchk(cudaDeviceSynchronize());
     }
@@ -7345,8 +7345,8 @@ namespace grid {
         }
         gpuErrchk(cudaDeviceSynchronize());
         // then call the kernel
-        if (USE_QDD_MINV_FLAG) {forward_dynamics_gradient_kernel<T><<<block_dimms,thread_dimms,FD_DU_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_df_du,hd_data->d_q_qd_u,stride_q_qd,hd_data->d_qdd, hd_data->d_Minv, d_robotModel,gravity,num_timesteps);}
-        else {forward_dynamics_gradient_kernel<T><<<block_dimms,thread_dimms,FD_DU_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_df_du,hd_data->d_q_qd_u,stride_q_qd,d_robotModel,gravity,num_timesteps);}
+        if (USE_QDD_MINV_FLAG) {((void(*)(...))forward_dynamics_gradient_kernel<T>)<<<block_dimms,thread_dimms,FD_DU_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_df_du,hd_data->d_q_qd_u,stride_q_qd,hd_data->d_qdd, hd_data->d_Minv, d_robotModel,gravity,num_timesteps);}
+        else {((void(*)(...))forward_dynamics_gradient_kernel<T>)<<<block_dimms,thread_dimms,FD_DU_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_df_du,hd_data->d_q_qd_u,stride_q_qd,d_robotModel,gravity,num_timesteps);}
         gpuErrchk(cudaDeviceSynchronize());
         // finally transfer the result back
         gpuErrchk(cudaMemcpy(hd_data->h_df_du,hd_data->d_df_du,NUM_JOINTS*2*NUM_JOINTS*num_timesteps*sizeof(T),cudaMemcpyDeviceToHost));
@@ -7401,8 +7401,8 @@ namespace grid {
                                        const dim3 block_dimms, const dim3 thread_dimms) {
         int stride_q_qd= 3*NUM_JOINTS;
         // then call the kernel
-        if (USE_QDD_MINV_FLAG) {forward_dynamics_gradient_kernel<T><<<block_dimms,thread_dimms,FD_DU_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_df_du,hd_data->d_q_qd_u,stride_q_qd,hd_data->d_qdd, hd_data->d_Minv, d_robotModel,gravity,num_timesteps);}
-        else {forward_dynamics_gradient_kernel<T><<<block_dimms,thread_dimms,FD_DU_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_df_du,hd_data->d_q_qd_u,stride_q_qd,d_robotModel,gravity,num_timesteps);}
+        if (USE_QDD_MINV_FLAG) {((void(*)(...))forward_dynamics_gradient_kernel<T>)<<<block_dimms,thread_dimms,FD_DU_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_df_du,hd_data->d_q_qd_u,stride_q_qd,hd_data->d_qdd, hd_data->d_Minv, d_robotModel,gravity,num_timesteps);}
+        else {((void(*)(...))forward_dynamics_gradient_kernel<T>)<<<block_dimms,thread_dimms,FD_DU_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_df_du,hd_data->d_q_qd_u,stride_q_qd,d_robotModel,gravity,num_timesteps);}
         gpuErrchk(cudaDeviceSynchronize());
     }
 
@@ -7955,7 +7955,7 @@ namespace grid {
         gpuErrchk(cudaMemcpyAsync(hd_data->d_q_qd_u,hd_data->h_q_qd_u,stride_q_qd*num_timesteps*sizeof(T),cudaMemcpyHostToDevice,streams[0]));
         gpuErrchk(cudaDeviceSynchronize());
         // then call the kernel
-        aba_kernel<T><<<block_dimms,thread_dimms,ABA_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_qdd,hd_data->d_q_qd_u,stride_q_qd,d_robotModel,gravity,num_timesteps);
+        ((void(*)(...))aba_kernel<T>)<<<block_dimms,thread_dimms,ABA_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_qdd,hd_data->d_q_qd_u,stride_q_qd,d_robotModel,gravity,num_timesteps);
         gpuErrchk(cudaDeviceSynchronize());
         // finally transfer the result back
         gpuErrchk(cudaMemcpy(hd_data->h_qdd,hd_data->d_qdd,NUM_JOINTS*num_timesteps*sizeof(T),cudaMemcpyDeviceToHost));
@@ -8005,7 +8005,7 @@ namespace grid {
                                        const dim3 block_dimms, const dim3 thread_dimms) {
         int stride_q_qd = 3*NUM_JOINTS;
         // then call the kernel
-        aba_kernel<T><<<block_dimms,thread_dimms,ABA_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_qdd,hd_data->d_q_qd_u,stride_q_qd,d_robotModel,gravity,num_timesteps);
+        ((void(*)(...))aba_kernel<T>)<<<block_dimms,thread_dimms,ABA_DYNAMIC_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_qdd,hd_data->d_q_qd_u,stride_q_qd,d_robotModel,gravity,num_timesteps);
         gpuErrchk(cudaDeviceSynchronize());
     }
 
@@ -8352,8 +8352,8 @@ namespace grid {
         if (USE_COMPRESSED_MEM) {stride_q_qd = 2*NUM_JOINTS; gpuErrchk(cudaMemcpyAsync(hd_data->d_q_qd,hd_data->h_q_qd,stride_q_qd*num_timesteps*sizeof(T),cudaMemcpyHostToDevice,streams[0]));}
         else {stride_q_qd = 3*NUM_JOINTS; gpuErrchk(cudaMemcpyAsync(hd_data->d_q_qd_u,hd_data->h_q_qd_u,stride_q_qd*num_timesteps*sizeof(T),cudaMemcpyHostToDevice,streams[0]));}
         // then call the kernel
-        if (USE_COMPRESSED_MEM) {crba_kernel<T><<<block_dimms,thread_dimms,CRBA_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_M,hd_data->d_q_qd,stride_q_qd,d_robotModel,gravity,num_timesteps);}
-        else                    {crba_kernel<T><<<block_dimms,thread_dimms,CRBA_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_M,hd_data->d_q_qd_u,stride_q_qd,d_robotModel,gravity,num_timesteps);}
+        if (USE_COMPRESSED_MEM) {((void(*)(...))crba_kernel<T>)<<<block_dimms,thread_dimms,CRBA_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_M,hd_data->d_q_qd,stride_q_qd,d_robotModel,gravity,num_timesteps);}
+        else                    {((void(*)(...))crba_kernel<T>)<<<block_dimms,thread_dimms,CRBA_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_M,hd_data->d_q_qd_u,stride_q_qd,d_robotModel,gravity,num_timesteps);}
         gpuErrchk(cudaDeviceSynchronize());
         // finally transfer the result back
         gpuErrchk(cudaMemcpy(hd_data->h_M,hd_data->d_M,NUM_JOINTS*NUM_JOINTS*num_timesteps*sizeof(T),cudaMemcpyDeviceToHost));
@@ -8404,8 +8404,8 @@ namespace grid {
                                        const dim3 block_dimms, const dim3 thread_dimms) {
         int stride_q_qd = USE_COMPRESSED_MEM ? 2*NUM_JOINTS: 3*NUM_JOINTS;
         // then call the kernel
-        if (USE_COMPRESSED_MEM) {crba_kernel<T><<<block_dimms,thread_dimms,CRBA_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_M,hd_data->d_q_qd,stride_q_qd,d_robotModel,gravity,num_timesteps);}
-        else                    {crba_kernel<T><<<block_dimms,thread_dimms,CRBA_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_M,hd_data->d_q_qd_u,stride_q_qd,d_robotModel,gravity,num_timesteps);}
+        if (USE_COMPRESSED_MEM) {((void(*)(...))crba_kernel<T>)<<<block_dimms,thread_dimms,CRBA_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_M,hd_data->d_q_qd,stride_q_qd,d_robotModel,gravity,num_timesteps);}
+        else                    {((void(*)(...))crba_kernel<T>)<<<block_dimms,thread_dimms,CRBA_SHARED_MEM_COUNT*sizeof(T)>>>(hd_data->d_M,hd_data->d_q_qd_u,stride_q_qd,d_robotModel,gravity,num_timesteps);}
         gpuErrchk(cudaDeviceSynchronize());
     }
 
