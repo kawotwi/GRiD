@@ -1,3 +1,4 @@
+# previously available setup.py, compatible with python_bindings.cu
 import os
 import re
 import sys

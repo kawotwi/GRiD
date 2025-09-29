@@ -227,14 +227,12 @@ ENV TORCH_CUDA_ARCH_LIST="7.5 8.0 8.6 8.9"
 
 When developing on Linux:
 1. Use the development setup method
-2. Run tests after changes: `python3 test_linux_compatibility.py`
-3. Check compilation with verbose output enabled
-4. Test on multiple GPU architectures if available
+2. Check compilation with verbose output enabled
+3. Test on multiple GPU architectures if available
 
 ## Support
 
 For Linux-specific issues:
-1. Check system compatibility with `test_linux_compatibility.py`
-2. Verify CUDA installation and environment variables
-3. Enable verbose compilation to diagnose build issues
-4. Check PyTorch CUDA compatibility
+1. Verify CUDA installation and environment variables
+2. Enable verbose compilation to diagnose build issues
+3. Check PyTorch CUDA compatibility
